@@ -46,11 +46,27 @@ class SessionService:
             db.close()
 
     @staticmethod
-    def get_session(session_id: str) -> Optional[SessionRecord]:
-        """Fetch session by ID."""
+    def get_session(session_id: str, default_query: Optional[str] = None) -> Optional[SessionRecord]:
+        """Fetch session by ID with automatic recovery for ephemeral serverless instances."""
         db: Session = SessionLocal()
         try:
-            return db.query(SessionRecord).filter_by(session_id=session_id).first()
+            sess = db.query(SessionRecord).filter_by(session_id=session_id).first()
+            if not sess and session_id:
+                sess = SessionRecord(
+                    session_id=session_id,
+                    original_query=default_query or "photo memory",
+                    clues=None,
+                    constraints=json.dumps([]),
+                    candidate_ids=json.dumps([]),
+                    turn_count=0,
+                    status="active",
+                    created_at=utcnow(),
+                    updated_at=utcnow(),
+                )
+                db.add(sess)
+                db.commit()
+                db.refresh(sess)
+            return sess
         finally:
             db.close()
 

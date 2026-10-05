@@ -65,6 +65,7 @@ class ConstraintInput(BaseModel):
 
 class CandidatesRequest(BaseModel):
     session_id: str
+    query: Optional[str] = None
     constraint: Optional[ConstraintInput] = None
 
 

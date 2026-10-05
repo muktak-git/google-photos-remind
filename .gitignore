@@ -56,3 +56,5 @@ scratch_check_db.py
 *.swo
 .DS_Store
 Thumbs.db
+
+.vercel

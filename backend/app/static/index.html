@@ -726,6 +726,7 @@
     let currentRefinement = null;
     let extractedClues = null;
     let activeClusterFilter = 'all';
+    let currentMemoryQuery = '';
 
     // -------------------------------------------------------------
     // Main Tab Switching (Photos Library vs ReMind AI)
@@ -918,12 +919,13 @@
         if (!searchRes.ok) throw new Error("Search initiation failed");
         const searchData = await searchRes.json();
         sessionId = searchData.session_id;
+        currentMemoryQuery = query;
 
         // 2. Fetch candidates & refinement questions directly
         const candRes = await fetch('/api/candidates', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session_id: sessionId })
+          body: JSON.stringify({ session_id: sessionId, query: currentMemoryQuery })
         });
         if (!candRes.ok) throw new Error("Candidate retrieval failed");
         const candData = await candRes.json();
@@ -1169,6 +1171,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             session_id: sessionId,
+            query: currentMemoryQuery,
             constraint: { dimension: dimension || "visual", value }
           })
         });
@@ -1399,7 +1402,7 @@
         const candRes = await fetch('/api/candidates', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ session_id: sessionId })
+          body: JSON.stringify({ session_id: sessionId, query: currentMemoryQuery })
         });
         if (!candRes.ok) throw new Error("Candidates retrieval failed");
         const candData = await candRes.json();
@@ -1607,6 +1610,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             session_id: sessionId,
+            query: currentMemoryQuery,
             constraint: { dimension, value }
           })
         });

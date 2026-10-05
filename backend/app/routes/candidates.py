@@ -13,9 +13,10 @@ router = APIRouter(prefix="/api", tags=["Candidates"])
 @router.post("/candidates", response_model=CandidatesResponse)
 async def get_or_refine_candidates(req: CandidatesRequest):
     """Screen 3: Retrieve initial candidate photos or re-rank existing candidates after refinement."""
-    session = SessionService.get_session(req.session_id)
+    session = SessionService.get_session(req.session_id, default_query=req.query)
+    effective_query = req.query or (session.original_query if session and session.original_query else "photo memory")
     if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+        session = SessionService.create_session(query=effective_query)
 
     banner_msg = None
 
@@ -90,13 +91,13 @@ async def get_or_refine_candidates(req: CandidatesRequest):
         clues_dict = json.loads(session.clues)
         clues_obj = ClueData(**clues_dict)
 
-    query_lower = (session.original_query or "").lower()
+    query_lower = effective_query.lower()
     # Adapt limit to cluster context (e.g. 38 for coorg cafe)
     limit = 38 if "coorg" in query_lower and ("cafe" in query_lower or "café" in query_lower) else settings.MAX_CANDIDATES
 
     candidates = retrieval_service.get_initial_candidates(
         clues=clues_obj,
-        query=session.original_query,
+        query=effective_query,
         limit=limit,
     )
 
@@ -109,7 +110,7 @@ async def get_or_refine_candidates(req: CandidatesRequest):
         answered_dimensions=[],
         session_id=session.session_id,
         current_turn=session.turn_count + 1,
-        original_query=session.original_query,
+        original_query=effective_query,
     )
 
     banner = refine_resp.summary_message or f"I found {len(candidates)} possible photos from your library."
