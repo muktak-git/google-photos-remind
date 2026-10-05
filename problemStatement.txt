@@ -1,0 +1,196 @@
+REMIND - GOOGLE PHOTOS MEMORY RECONSTRUCTION MVP
+Problem Statement, Objective and System Workflow
+
+AI tool name: ReMind
+
+======================================================================
+1. PROBLEM STATEMENT
+======================================================================
+
+Users often cannot formulate the right search query for a photo they want to find. They remember the photo only vaguely (for example, "that small cafe we went to during our Goa trip") and cannot describe it precisely.
+
+Conventional search (keyword search such as "Goa cafe") and AI natural-language search (such as "Find the cafe we went to during our Goa trip") both depend on the user supplying a precise enough description. When the memory is incomplete, the user has no clear way to narrow down the results and reach the photo they have in mind.
+
+Core question:
+"When users cannot formulate the right search query, does an AI-guided memory reconstruction loop help them retrieve the intended photo more successfully than conventional search?"
+
+======================================================================
+2. OBJECTIVE
+======================================================================
+
+Primary objective:
+Prove that ReMind can help a user retrieve a photo they cannot precisely describe, using progressive memory reconstruction.
+
+ReMind does this by:
+- Converting the user's vague memory into machine-readable retrieval clues.
+- Retrieving a first candidate set of photos.
+- Identifying the additional clue that would reduce uncertainty the most, and asking the user for it.
+- Re-ranking the candidates after each answer until the user recognizes the intended photo.
+
+What the MVP should demonstrate:
+The value comes from interactive reconstruction of incomplete memories, rather than from AI understanding alone.
+
+Primary metric:
+Successful Vaguely-Remembered Photo Retrieval Rate
+
+Secondary metrics:
+- Time to retrieval
+- Refinement turns
+- Photos viewed
+- Abandonment
+- User satisfaction
+
+Out of scope (later phases):
+- Google's production-scale infrastructure
+- Perfect AI search
+- A complete personal memory graph
+- Proactive memories
+- Full Google Photos integration
+
+======================================================================
+3. MVP SCOPE
+======================================================================
+
+Dataset:
+500-1,000 photos, organized into realistic memory clusters (e.g., Goa trip, Bangalore weekend, College event, Medical/document photos) and including distractor photos so retrieval is meaningful.
+
+AI:
+Multimodal LLM for:
+- Image description
+- Memory parsing
+- Refinement-question generation
+
+Retrieval:
+Embeddings + metadata
+
+Ranking:
+Semantic relevance + contextual match
+
+Core innovation:
+Uncertainty-driven refinement
+
+Frontend:
+5-screen lightweight mobile app
+
+======================================================================
+4. SYSTEM WORKFLOW
+======================================================================
+
+The workflow has two parts: an offline indexing pipeline (built once on the test library) and an online memory reconstruction loop (run for every user search).
+
+----------------------------------------------------------------------
+4.1 OFFLINE: LIBRARY INDEXING PIPELINE
+----------------------------------------------------------------------
+
+Photos -> Multimodal analysis -> Metadata + descriptions -> Embeddings -> Vector index
+
+Step 1 - Photo library
+- Controlled "Google Photos-like" test library of 500-1,000 photos.
+- Sources: own photos, public-domain/sample images, or a synthetic dataset.
+- Organized into memory clusters, with distractor photos included.
+
+Step 2 - Multimodal analysis (Multimodal LLM: image description)
+- The multimodal model generates descriptions/tags for each image instead of creating them manually.
+
+Step 3 - Metadata + descriptions
+- A structured record is created for every photo, containing:
+  photo_id, date, location, people, event, scene, objects, visual_description, ocr_text
+- Example: photo_id "goa_023", date "2025-12-18", location "Goa", people ["friend_1", "friend_2"], event "Goa Trip", scene ["cafe", "indoor"], objects ["coffee", "table"], visual_description "small cafe with blue wall and wooden tables".
+
+Step 4 - Embeddings
+- One combined representation per photo: visual description + objects + people + location + event + OCR.
+- An embedding is generated for each combined representation.
+
+Step 5 - Vector index
+- Embeddings are stored in a vector index (options: FAISS, Chroma, Qdrant, Pinecone).
+- Metadata is kept alongside so both vector (semantic) and metadata search are possible.
+
+----------------------------------------------------------------------
+4.2 ONLINE: MEMORY RECONSTRUCTION LOOP
+----------------------------------------------------------------------
+
+Vague memory -> Memory Understanding -> Candidate Retrieval -> Uncertainty Analysis -> Memory Prompt -> Re-rank -> Recognition
+
+Step 1 - User vague memory (Screen 1: Memory Search)
+- The app asks: "What do you remember?"
+- The user types a vague memory, e.g., "That small cafe we went to during our Goa trip..."
+- CTA: "Find my memory"
+
+Step 2 - Memory Understanding (Multimodal LLM: memory parsing) (Screen 2: Understanding)
+- The user's input is sent to the LLM, which returns structured output of retrieval clues:
+  location, event, scene, people, time, visual_details, and a confidence score per clue.
+- Example: location "Goa" (0.95), event "trip", scene "cafe" (0.85), people null, time null (0.0).
+- The app shows "Here's what I understood" (e.g., Goa, Cafe, Trip, Friends - maybe).
+- CTA: "Find photos"
+
+Step 3 - Candidate Retrieval (Embeddings + metadata) (Screen 3: Candidates)
+- Extracted clues are used for vector/semantic search + metadata search on the index.
+- Output: top 20 candidate photos.
+- The app shows "I found 20 possibilities" in a photo grid.
+- CTA: "Help me narrow it down"
+
+Step 4 - Uncertainty Analysis (Core innovation: uncertainty-driven refinement)
+- The Memory Refinement Engine examines the candidate set and asks:
+  "What additional clue would reduce uncertainty the most?"
+- Example distribution of 20 candidates: 8 daytime cafes, 7 evening cafes, 5 beach cafes.
+- Instead of randomly asking for the date, the system picks the most useful clue to ask about.
+
+Step 5 - Memory Prompt (Multimodal LLM: refinement-question generation) (Screen 4: Memory Refinement)
+- The LLM generates the refinement question, e.g., "Do you remember if it was during the day or evening?"
+- Options shown: Day / Evening / Not sure.
+- Screen text: "What else do you remember?" with example clue options such as During the day, In the evening, Near the beach, With friends, I don't remember.
+
+Step 6 - Re-rank (Ranking: semantic relevance + contextual match)
+- The user's answer is applied as a constraint on the candidates.
+- Example: user selects "Evening" -> 20 candidates -> Evening constraint -> 6 candidates.
+- The app shows "These 6 look closer."
+- Steps 4-6 can repeat (e.g., "Was it near the beach?" -> candidates -> "Was it in the evening?" -> candidates) until the user can recognize the photo.
+
+Step 7 - Recognition (Screen 5: Success)
+- The app shows the best match as a large photo: "I think we found it!"
+- Question: "Is this the photo you remember?"
+- Options: "Yes, that's it" / "No, keep looking"
+- "No, keep looking" continues the refinement loop.
+
+----------------------------------------------------------------------
+4.3 END-TO-END FLOW SUMMARY
+----------------------------------------------------------------------
+
+1. User has a vague memory: "That cafe in Goa..."
+2. Memory Understanding: extract contextual clues.
+3. Candidate Retrieval: find top 20 photos.
+4. Uncertainty Analysis: identify what information would help most.
+5. Memory Prompt: "Day or evening?"
+6. Re-rank: 20 -> 6 candidates.
+7. Recognition: "That's the one!"
+
+----------------------------------------------------------------------
+4.4 FRONTEND SCREEN MAP (5-screen lightweight mobile app)
+----------------------------------------------------------------------
+
+Screen 1 - Memory Search       -> "What do you remember?"            -> CTA: Find my memory
+Screen 2 - Understanding       -> "Here's what I understood"         -> CTA: Find photos
+Screen 3 - Candidates          -> "I found 20 possibilities"         -> CTA: Help me narrow it down
+Screen 4 - Memory Refinement   -> "What else do you remember?"       -> Select a clue / I don't remember
+Screen 5 - Success             -> "I think we found it!"             -> Yes, that's it / No, keep looking
+
+======================================================================
+5. HOW THE WORKFLOW WILL BE TESTED
+======================================================================
+
+Participants:
+10-20 users x 5 vague-memory tasks.
+Example task: "Find the photo from your Goa trip where you were sitting at a cafe with friends."
+
+Three versions compared:
+A. Traditional keyword search ("Goa cafe") - control
+B. AI natural-language search ("Find the cafe we went to during our Goa trip.")
+C. ReMind - Memory Reconstruction ("That cafe from Goa." -> candidates -> "Was it near the beach?" -> candidates -> "Was it in the evening?" -> recognition)
+
+Measured:
+- Successful retrieval (primary: Successful Vaguely-Remembered Photo Retrieval Rate)
+- Time to retrieval
+- Refinement turns / number of attempts
+- Photos viewed
+- Abandonment
+- User confidence/satisfaction

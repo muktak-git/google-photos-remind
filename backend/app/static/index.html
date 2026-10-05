@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <title>Google Photos — ReMind AI Memory Reconstruction</title>
+  
+  <!-- Material 3 & Typography Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CSS & Stitch Material 3 Theme -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#121316",
+            "surface-dim": "#121316",
+            "surface-bright": "#38393c",
+            "surface-container-lowest": "#0d0e11",
+            "surface-container-low": "#1a1b1e",
+            "surface-container": "#1e2022",
+            "surface-container-high": "#292a2d",
+            "surface-container-highest": "#343538",
+            "on-surface": "#e3e2e6",
+            "on-surface-variant": "#c3c6d1",
+            "primary": "#b5cfff",
+            "primary-container": "#8ab4f8",
+            "on-primary-container": "#0d4582",
+            "secondary": "#6ddd81",
+            "secondary-container": "#30a550",
+            "tertiary": "#ffc53c",
+            "tertiary-container": "#e3a900",
+            "outline": "#8d919b",
+            "outline-variant": "#424750",
+            "error": "#ffb4ab",
+          },
+          fontFamily: {
+            sans: ["Roboto Flex", "system-ui", "-apple-system", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #121316;
+      color: #e3e2e6;
+      overscroll-behavior-y: none;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Roboto Flex', sans-serif;
+    }
+    ::-webkit-scrollbar { display: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+
+<body class="bg-[#0a0b0e] font-sans text-on-surface antialiased flex flex-col items-center justify-start sm:justify-center min-h-screen sm:py-6 sm:px-4 selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- Desktop Preview Indicator Badge -->
+  <div class="hidden sm:flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-surface-container/80 backdrop-blur-md border border-surface-container-highest/60 text-[11px] text-on-surface-variant font-medium shadow-md">
+    <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+    <span class="text-on-surface font-semibold">Google Photos Prototype</span>
+    <span class="text-on-surface-variant/40">•</span>
+    <span>Mobile Screen View (390 × 844)</span>
+  </div>
+
+  <!-- Mobile Viewport Shell (Sleek Smartphone Frame on Desktop, 100% Full-Bleed on Mobile) -->
+  <div id="phone-container" class="w-full sm:w-[390px] h-[100dvh] sm:h-[844px] sm:max-h-[90vh] bg-surface flex flex-col relative sm:rounded-[48px] sm:border-[10px] sm:border-[#22242c] sm:shadow-[0_25px_80px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.08)] overflow-hidden">
+
+    <!-- Smartphone Status Bar (Visible on desktop simulator) -->
+    <div class="hidden sm:flex items-center justify-between px-6 pt-3 pb-1 bg-surface/95 backdrop-blur-md z-50 shrink-0 select-none">
+      <span class="text-[12px] font-bold text-on-surface tracking-tight">9:41</span>
+      <div class="w-20 h-4 rounded-full bg-black/95 flex items-center justify-center">
+        <div class="w-2.5 h-2.5 rounded-full bg-[#18191d]"></div>
+      </div>
+      <div class="flex items-center gap-1.5 text-on-surface">
+        <span class="material-symbols-outlined text-[13px]">signal_cellular_4_bar</span>
+        <span class="material-symbols-outlined text-[13px]">wifi</span>
+        <span class="material-symbols-outlined text-[15px]">battery_full</span>
+      </div>
+    </div>
+
+    <!-- Top Navigation Header with Google Pinwheel Logo -->
+    <header class="shrink-0 w-full z-40 bg-surface/90 backdrop-blur-xl border-b border-surface-container-high/40">
+      <div class="px-4 py-2.5 flex flex-col justify-center">
+        <div class="flex items-center justify-between w-full h-11">
+          
+          <div class="flex items-center gap-2">
+            <button id="header-back-btn" aria-label="Go back" class="hidden w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high active:scale-95 transition-all" onclick="handleNavigationBack()" type="button">
+              <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            </button>
+            
+            <!-- Pinwheel SVG Logo -->
+            <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchMainTab('library')">
+              <svg class="h-6 w-6 shrink-0" viewBox="0 0 48 48">
+                <g transform="translate(24, 24)">
+                  <path d="M0,0 L0,-18 A6,6 0 0,1 6,-12 L6,0 Z" fill="#EA4335" />
+                  <path d="M0,0 L18,0 A6,6 0 0,1 12,6 L0,6 Z" fill="#FBBC04" />
+                  <path d="M0,0 L0,18 A6,6 0 0,1 -6,12 L-6,0 Z" fill="#34A853" />
+                  <path d="M0,0 L-18,0 A6,6 0 0,1 -12,-6 L0,-6 Z" fill="#4285F4" />
+                  <circle cx="0" cy="0" r="3.5" fill="#FFFFFF" />
+                </g>
+              </svg>
+              <div class="flex flex-col">
+                <span class="text-base font-semibold text-on-surface leading-tight tracking-tight">Google Photos</span>
+                <span id="header-subtitle" class="text-[11px] text-on-surface-variant truncate">Photos Library</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="switchMainTab('remind')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold shadow-sm active:scale-95 transition-all">
+              <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+              <span>ReMind</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-surface-container-highest border border-surface-container-high flex items-center justify-center text-primary font-bold text-xs">
+              M
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Step Progress Indicator Bar (Shown only in ReMind flow) -->
+        <div id="remind-progress-bar" class="hidden w-full pt-2 pb-0.5">
+          <div class="grid grid-cols-5 gap-1.5 w-full">
+            <div id="prog-1" class="h-1 rounded-full bg-primary-container transition-all duration-300"></div>
+            <div id="prog-2" class="h-1 rounded-full bg-surface-container-highest transition-all duration-300"></div>
+            <div id="prog-3" class="h-1 rounded-full bg-surface-container-highest transition-all duration-300"></div>
+            <div id="prog-4" class="h-1 rounded-full bg-surface-container-highest transition-all duration-300"></div>
+            <div id="prog-5" class="h-1 rounded-full bg-surface-container-highest transition-all duration-300"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main id="app-main" class="flex-1 overflow-y-auto no-scrollbar relative w-full pb-20">
+
+      <!-- =============================================================== -->
+      <!-- TAB 1: ACTUAL PHOTO LIBRARY (PHOTO STREAM & ALBUM CLUSTERS)     -->
+      <!-- =============================================================== -->
+      <section id="view-library" class="flex flex-col px-3 pt-3 gap-3 animate-fade-in">
+        
+        <!-- ReMind AI Feature Hero Banner -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-surface-container to-surface-container-high p-4 border border-surface-container-highest/60 shadow-lg">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-1.5 text-primary">
+                <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                <span class="text-xs font-bold tracking-wide uppercase">AI Memory Reconstruction</span>
+              </div>
+              <h2 class="text-sm font-semibold text-on-surface">Can't find a forgotten memory?</h2>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                Describe vague feelings, colors, or fragments. ReMind uses Gemini to reconstruct and pinpoint your photos.
+              </p>
+            </div>
+          </div>
+          <div class="pt-3">
+            <button onclick="switchMainTab('remind')" class="w-full py-2.5 px-4 rounded-xl bg-primary-container hover:bg-primary text-on-primary-container text-xs font-bold flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
+              <span>Start Memory Reconstruction</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Album / Cluster Filter Chips -->
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-semibold text-on-surface-variant">Albums & Trips</span>
+            <span id="library-total-count" class="text-[11px] text-primary-container font-medium">740 photos</span>
+          </div>
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            <button onclick="filterLibraryCluster('all')" id="chip-all" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold shadow-sm transition-all">
+              All Photos
+            </button>
+            <button onclick="filterLibraryCluster('kids_playing_water')" id="chip-kids_playing_water" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              🌊 Kids in Water (90)
+            </button>
+            <button onclick="filterLibraryCluster('rajasthan_trip')" id="chip-rajasthan_trip" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              🏰 Rajasthan Palaces (160)
+            </button>
+            <button onclick="filterLibraryCluster('coorg_friends_trip')" id="chip-coorg_friends_trip" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              ☕ Coorg Campfire (120)
+            </button>
+            <button onclick="filterLibraryCluster('bangalore_weekend')" id="chip-bangalore_weekend" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              🍻 Bangalore Cafes (100)
+            </button>
+            <button onclick="filterLibraryCluster('college_event')" id="chip-college_event" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              🎭 College Fest (80)
+            </button>
+            <button onclick="filterLibraryCluster('medical_docs')" id="chip-medical_docs" class="shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all">
+              📄 Medical Docs (70)
+            </button>
+          </div>
+        </div>
+
+        <!-- Real Photo Library Grid -->
+        <div id="library-grid" class="grid grid-cols-3 gap-1.5 pt-1">
+          <!-- Dynamically populated real photos -->
+        </div>
+
+        <div id="library-loading" class="flex flex-col items-center justify-center py-10 gap-2 text-on-surface-variant">
+          <div class="w-6 h-6 border-2 border-primary-container border-t-transparent rounded-full animate-spin"></div>
+          <span class="text-xs">Loading authentic photo library...</span>
+        </div>
+      </section>
+
+      <!-- =============================================================== -->
+      <!-- TAB 2: REMIND AI RECONSTRUCTION WORKFLOW                        -->
+      <!-- =============================================================== -->
+      <div id="view-remind" class="hidden flex-col">
+
+        <!-- =============================================================== -->
+        <!-- SCREEN 1: MEMORY SEARCH                                          -->
+        <!-- =============================================================== -->
+        <section id="screen-1" class="flex flex-col px-4 pt-3 pb-8 gap-4 animate-fade-in">
+          
+          <!-- Step Meta Indicator -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary-container text-on-primary-container text-xs font-bold">1</span>
+              <span class="text-xs text-on-surface-variant font-medium uppercase tracking-wider">Step 1 of 5: Memory Search</span>
+            </div>
+            <div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high">
+              <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              <span class="text-[11px] text-secondary font-medium">Gemini Ready</span>
+            </div>
+          </div>
+
+          <!-- Headline -->
+          <div class="flex flex-col gap-1">
+            <h1 class="text-2xl font-bold text-on-surface tracking-tight">What do you remember?</h1>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Describe anything you recall—a place, feelings, people, or small details. We’ll help piece it together.
+            </p>
+          </div>
+
+          <!-- Input Box with Sensory Feedback -->
+          <div class="flex flex-col bg-surface-container rounded-2xl shadow-xl overflow-hidden border border-surface-container-high/60 transition-all">
+            <div class="p-4 flex flex-col gap-3">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-1 text-primary-container">
+                  <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                  <span class="text-xs font-semibold tracking-wide">Multi-Modal Retrieval</span>
+                </div>
+                <button id="clear-btn" aria-label="Clear memory text" class="w-7 h-7 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" type="button">
+                  <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+              </div>
+
+              <textarea id="memory-input" class="w-full bg-transparent text-on-surface text-base placeholder-on-surface-variant/40 focus:outline-none resize-none leading-relaxed" rows="4" placeholder="e.g. That grand palace courtyard we visited during our Rajasthan trip with carved arches..."></textarea>
+
+              <div class="flex items-center justify-between pt-1">
+                <div class="flex items-center gap-1.5 text-on-surface-variant">
+                  <span class="material-symbols-outlined text-[16px] text-tertiary">lightbulb</span>
+                  <span class="text-xs">Sensory anchors active</span>
+                </div>
+                <button id="mic-btn" aria-label="Voice input" class="w-9 h-9 rounded-full bg-surface-container-highest text-primary flex items-center justify-center hover:bg-surface-bright active:scale-95 transition-all" type="button">
+                  <span class="material-symbols-outlined text-[18px]" id="mic-icon">mic</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Anchor Chips -->
+            <div class="px-4 py-3 bg-surface-container-low flex flex-col gap-1.5 border-t border-surface-container-high/40">
+              <span class="text-[11px] text-on-surface-variant font-medium">Add memory anchors:</span>
+              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                <button class="shrink-0 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-surface-bright text-on-surface text-xs active:scale-95 transition-all" onclick="setAnchor('That café in coorg.')" type="button">
+                  <span>☕ Coorg Café</span>
+                </button>
+                <button class="shrink-0 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-surface-bright text-on-surface text-xs active:scale-95 transition-all" onclick="setAnchor('That grand palace courtyard with carved arches we visited during our Rajasthan trip')" type="button">
+                  <span>🏰 Rajasthan Palace</span>
+                </button>
+                <button class="shrink-0 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-surface-bright text-on-surface text-xs active:scale-95 transition-all" onclick="setAnchor('Kids playing and splashing water in the swimming pool with friends')" type="button">
+                  <span>🌊 Kids in Pool</span>
+                </button>
+                <button class="shrink-0 flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest hover:bg-surface-bright text-on-surface text-xs active:scale-95 transition-all" onclick="setAnchor('College cultural fest celebration on stage with awards')" type="button">
+                  <span>🎭 College Fest</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recall Tip Card -->
+          <div class="p-3.5 rounded-2xl bg-surface-container-low flex items-start gap-3 border border-surface-container-high/40">
+            <div class="w-8 h-8 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[18px]">tips_and_updates</span>
+            </div>
+            <div class="flex flex-col gap-0.5">
+              <span class="text-xs font-semibold text-on-surface">Recall Tip</span>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                You can mention time of day, colors, or vibes even if you forgot the date. ReMind parses emotional fragments and ambient lighting.
+              </p>
+            </div>
+          </div>
+
+          <!-- Library Highlights Preview -->
+          <div class="flex flex-col gap-2 pt-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-on-surface-variant">Library Preview Clusters</span>
+              <span class="text-[11px] text-primary-container font-medium">740 Real Photos Indexed</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div class="relative rounded-xl overflow-hidden aspect-square bg-surface-container-high cursor-pointer group" onclick="setAnchor('That café in coorg.')">
+                <img src="/photos/thumbnails/coorg_001.jpg" alt="Coorg Cafe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='/data/photos/coorg_friends_trip/coorg_001.jpg'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent flex items-end p-1.5">
+                  <span class="text-[10px] text-on-surface truncate">Coorg Café</span>
+                </div>
+              </div>
+              <div class="relative rounded-xl overflow-hidden aspect-square bg-surface-container-high cursor-pointer group" onclick="setAnchor('That grand palace courtyard with carved arches we visited during our Rajasthan trip')">
+                <img src="/photos/thumbnails/raj_palace_001.jpg" alt="Palace" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='/data/photos/rajasthan_trip/raj_palace_001.jpg'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent flex items-end p-1.5">
+                  <span class="text-[10px] text-on-surface truncate">Rajasthan Palace</span>
+                </div>
+              </div>
+              <div class="relative rounded-xl overflow-hidden aspect-square bg-surface-container-high cursor-pointer group" onclick="setAnchor('Kids playing and splashing water in the swimming pool with friends')">
+                <img src="/photos/thumbnails/water_kids_001.jpg" alt="Pool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='/data/photos/kids_playing_water/water_kids_001.jpg'"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent flex items-end p-1.5">
+                  <span class="text-[10px] text-on-surface truncate">Kids in Water</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Primary Action Button -->
+          <div class="pt-2 flex flex-col gap-1.5">
+            <button id="btn-search-submit" class="w-full h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all" onclick="submitMemorySearch()" type="button">
+              <span id="btn-search-label">Find my memory</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+            <div class="flex items-center justify-center gap-1.5 pt-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+              <span class="text-[11px] text-on-surface-variant">Step 1 parses vague memory into retrieval clues</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- SCREEN CONVERSATIONAL: PROGRESSIVE MEMORY RECONSTRUCTION         -->
+        <!-- =============================================================== -->
+        <section id="screen-conversational" class="hidden flex-col px-4 pt-3 pb-32 gap-4 animate-fade-in">
+          <!-- Top bar with Session status and Restart -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+              <span class="text-xs text-primary font-bold uppercase tracking-wider">ReMind Assistant</span>
+            </div>
+            <button onclick="restartSearch()" class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface-variant text-xs font-medium transition-all">
+              <span class="material-symbols-outlined text-[14px]">replay</span>
+              <span>New Search</span>
+            </button>
+          </div>
+
+          <!-- Chat Timeline / Conversation Stream -->
+          <div id="chat-stream" class="flex flex-col gap-3">
+            <!-- Messages dynamically rendered here -->
+          </div>
+
+          <!-- Hero Recognition Card (Shown when <= 3 photos or photo clicked) -->
+          <div id="conv-hero-card" class="hidden flex-col bg-surface-container rounded-2xl p-4 shadow-xl border border-secondary/40 gap-3 mt-1">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-secondary">
+                <span class="material-symbols-outlined text-[18px]">verified</span>
+                <span class="text-xs font-bold uppercase tracking-wider">Recognition Candidate</span>
+              </div>
+              <span id="conv-hero-pct" class="text-xs font-bold text-secondary">98% match</span>
+            </div>
+            <h3 class="text-sm font-bold text-on-surface">Is this the photo you remember?</h3>
+            <div class="relative rounded-xl overflow-hidden aspect-[4/3] bg-surface-container-lowest">
+              <img id="conv-hero-img" src="" alt="Recognized Photo" class="w-full h-full object-cover"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2 left-2 right-2 flex flex-col gap-0.5 text-white">
+                <div class="flex items-center justify-between text-xs font-semibold">
+                  <span id="conv-hero-date">December 2025</span>
+                  <span id="conv-hero-loc">Coorg</span>
+                </div>
+                <p id="conv-hero-desc" class="text-[11px] text-white/90 line-clamp-2"></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-1">
+              <button onclick="confirmMatchedPhoto(true)" class="flex-1 py-2.5 rounded-xl bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-xs flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                <span>Yes, that's it!</span>
+              </button>
+              <button onclick="hideConvHeroCard(true)" class="flex-1 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface font-semibold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-[16px]">replay</span>
+                <span>No, keep looking</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Candidates Photo Grid Section -->
+          <div id="conv-candidates-section" class="flex flex-col gap-2 pt-2">
+            <div class="flex items-center justify-between px-1">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-semibold text-on-surface">Matching Candidates</span>
+                <span id="conv-candidates-count-badge" class="px-2 py-0.5 rounded-full bg-surface-container-highest text-secondary text-[11px] font-bold">38 photos</span>
+              </div>
+              <span class="text-[11px] text-on-surface-variant">Tap photo to inspect</span>
+            </div>
+            <div id="conv-candidates-grid" class="grid grid-cols-3 gap-2">
+              <!-- Dynamically populated candidate thumbnails -->
+            </div>
+          </div>
+
+          <!-- Sticky Bottom Conversation Input Bar -->
+          <div class="absolute bottom-16 left-0 right-0 p-3 bg-surface/95 backdrop-blur-xl border-t border-surface-container-high/60 z-30 flex items-center gap-2">
+            <input id="conv-chat-input" type="text" placeholder="Type a detail (e.g. 'Blue wall') or tap above..." class="flex-1 bg-surface-container-high text-on-surface text-xs rounded-full px-4 py-2.5 placeholder-on-surface-variant/50 focus:outline-none border border-surface-container-highest focus:border-primary-container" onkeydown="if(event.key==='Enter') submitConvInput()"/>
+            <button onclick="submitConvInput()" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary active:scale-95 transition-all shrink-0">
+              <span class="material-symbols-outlined text-[18px]">send</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- SCREEN 2: UNDERSTANDING                                         -->
+        <!-- =============================================================== -->
+        <section id="screen-2" class="hidden flex-col px-4 pt-4 pb-8 gap-5 animate-fade-in">
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-primary">psychology</span>
+              <span class="text-xs text-primary uppercase tracking-wider font-semibold">Step 2 of 5</span>
+            </div>
+            <span class="text-xs text-on-surface-variant">Semantic Decomposition</span>
+          </div>
+
+          <!-- Query Recap Card -->
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-high p-4 shadow-sm border border-surface-container-highest/60">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-[18px] text-primary">format_quote</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-[11px] text-on-surface-variant">Original Memory Prompt</span>
+                <p id="recap-query-text" class="text-sm text-on-surface italic font-medium leading-relaxed mt-0.5">
+                  “That grand palace courtyard we visited during our Rajasthan trip...”
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Headline Block -->
+          <div class="flex flex-col gap-1">
+            <h1 class="text-2xl font-bold text-on-surface tracking-tight">Here's what I understood</h1>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Extracted memory cues and confidence breakdown from your Google Photos library.
+            </p>
+          </div>
+
+          <!-- Signal Cards Container -->
+          <div class="flex flex-col gap-2.5">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-semibold text-on-surface-variant">Extracted Clue Cues</span>
+              <span id="clue-signal-count" class="text-xs text-secondary font-medium">Calibrated Confidence</span>
+            </div>
+            <div id="clue-cards-container" class="flex flex-col gap-2"></div>
+          </div>
+
+          <!-- Editable Chips Block -->
+          <div class="p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high/40 flex flex-col gap-2">
+            <span class="text-xs font-semibold text-on-surface">Active Memory Chips</span>
+            <div id="chips-cloud" class="flex flex-wrap gap-1.5"></div>
+            
+            <div class="flex items-center gap-2 pt-2 border-t border-surface-container-high/40">
+              <input id="add-clue-input" type="text" placeholder="Add missed detail (e.g. at sunset)..." class="flex-1 bg-surface-container px-3 py-1.5 rounded-xl text-xs text-on-surface placeholder-on-surface-variant/40 focus:outline-none border border-surface-container-high/60"/>
+              <button onclick="handleAddCustomClue()" class="px-3 py-1.5 rounded-xl bg-surface-container-highest text-primary text-xs font-semibold hover:bg-surface-bright active:scale-95 transition-all">
+                Add
+              </button>
+            </div>
+          </div>
+
+          <!-- Primary Submit Button -->
+          <div class="pt-2 flex flex-col gap-1.5">
+            <button id="btn-understand-submit" class="w-full h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all" onclick="submitFindPhotos()" type="button">
+              <span>Find photos</span>
+              <span class="material-symbols-outlined text-[18px]">photo_library</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- SCREEN 3: CANDIDATES GRID                                       -->
+        <!-- =============================================================== -->
+        <section id="screen-3" class="hidden flex-col px-4 pt-4 pb-24 gap-4 animate-fade-in">
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-primary">grid_view</span>
+              <span class="text-xs text-primary uppercase tracking-wider font-semibold">Step 3 of 5</span>
+            </div>
+            <span class="text-xs text-on-surface-variant">Candidate Evaluation</span>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <h1 id="candidates-count-heading" class="text-2xl font-bold text-on-surface tracking-tight">I found 20 possibilities</h1>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Ranked by semantic match against your recollection. Tap any photo to inspect.
+            </p>
+          </div>
+
+          <!-- Search Constraints Ribbon -->
+          <div id="candidates-ribbon" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1"></div>
+
+          <!-- Rollback Notification Banner -->
+          <div id="rollback-banner" class="hidden p-3 rounded-xl bg-tertiary-container/20 border border-tertiary/40 flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px] text-tertiary">info</span>
+            <span id="rollback-banner-text" class="text-xs text-on-surface">None matched that constraint; restored previous candidates.</span>
+          </div>
+
+          <!-- Candidates Photo Grid -->
+          <div id="candidates-grid" class="grid grid-cols-2 gap-2.5 pt-1"></div>
+
+          <!-- Sticky Bottom Action Bar -->
+          <div class="absolute bottom-16 left-0 right-0 p-3 bg-surface/90 backdrop-blur-xl border-t border-surface-container-high/60 z-30 flex items-center gap-3">
+            <button onclick="triggerRefinementLoop()" class="flex-1 h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all">
+              <span class="material-symbols-outlined text-[18px]">psychology_alt</span>
+              <span>Help me narrow it down</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- SCREEN 4: MEMORY REFINEMENT (UNCERTAINTY-DRIVEN)                 -->
+        <!-- =============================================================== -->
+        <section id="screen-4" class="hidden flex-col px-4 pt-4 pb-8 gap-5 animate-fade-in">
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-primary">tune</span>
+              <span class="text-xs text-primary uppercase tracking-wider font-semibold">Step 4 of 5</span>
+            </div>
+            <div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary text-[11px] font-semibold">
+              <span id="refine-candidates-badge">These look closer</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <h1 class="text-2xl font-bold text-on-surface tracking-tight">What else do you remember?</h1>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Every detail eliminates matching subsets and sharpens the search.
+            </p>
+          </div>
+
+          <!-- Horizontal Context Photo Strip -->
+          <div class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold text-on-surface-variant">Active Candidate Pool</span>
+            <div id="refine-horizontal-strip" class="flex gap-2 overflow-x-auto no-scrollbar py-1"></div>
+          </div>
+
+          <!-- Dynamically Generated Refinement Question Card -->
+          <div class="flex flex-col bg-surface-container rounded-2xl p-4 shadow-xl border border-surface-container-high/60 gap-4">
+            <div class="flex items-start gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center shrink-0 mt-0.5">
+                <span class="material-symbols-outlined text-[18px] text-secondary">help</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-[11px] text-secondary font-semibold uppercase tracking-wider">Uncertainty Minimization</span>
+                <p id="refine-question-text" class="text-base font-semibold text-on-surface leading-snug mt-0.5">
+                  Do you remember if it was during the daytime or evening?
+                </p>
+              </div>
+            </div>
+
+            <!-- Dynamic Options List -->
+            <div id="refine-options-container" class="flex flex-col gap-2"></div>
+
+            <!-- "Not Sure" Fallback Button -->
+            <button onclick="applyRefinementConstraint('uncertain', 'Not sure')" class="w-full py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container-high border border-surface-container-high/40 text-on-surface-variant text-xs font-medium active:scale-[0.99] transition-all flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">help_outline</span>
+              <span>I don't remember / Not sure</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- SCREEN 5: SUCCESS & RECOGNITION (MATCH FOUND)                    -->
+        <!-- =============================================================== -->
+        <section id="screen-5" class="hidden flex-col px-4 pt-4 pb-8 gap-5 animate-fade-in">
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+              <span class="text-xs text-secondary uppercase tracking-wider font-semibold">Step 5 of 5</span>
+            </div>
+            <div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary text-[11px] font-bold">
+              <span id="hero-match-pct">96% match</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <h1 class="text-2xl font-bold text-on-surface tracking-tight">I think we found it!</h1>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+              Based on your clues, this photo matches your memory reconstructed with high confidence.
+            </p>
+          </div>
+
+          <!-- Hero Photo Preview Card -->
+          <div class="relative rounded-2xl overflow-hidden bg-surface-container shadow-2xl border border-surface-container-high/80 aspect-[4/3] group">
+            <img id="hero-photo-img" src="" alt="Recognized Photo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-surface-dim/20 to-transparent"></div>
+            
+            <div class="absolute bottom-3 left-3 right-3 flex flex-col gap-1">
+              <div class="flex items-center justify-between text-xs text-on-surface font-semibold">
+                <span id="hero-date-text">November 2025</span>
+                <span id="hero-location-text">Rajasthan</span>
+              </div>
+              <p id="hero-desc-text" class="text-xs text-on-surface-variant line-clamp-2 leading-relaxed">
+                Royal palace courtyard with illuminated carved sandstone arches...
+              </p>
+            </div>
+          </div>
+
+          <!-- Metadata Tags -->
+          <div id="hero-chips-container" class="flex flex-wrap gap-1.5"></div>
+
+          <!-- Final Confirmation Actions -->
+          <div class="flex flex-col gap-2.5 pt-2">
+            <button onclick="confirmMatchedPhoto(true)" class="w-full h-12 rounded-full bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all">
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+              <span>Yes, that's it!</span>
+            </button>
+            <button onclick="confirmMatchedPhoto(false)" class="w-full h-11 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.99] transition-all">
+              <span class="material-symbols-outlined text-[18px]">replay</span>
+              <span>No, keep looking</span>
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar (Google Photos Style) -->
+    <nav class="absolute bottom-0 left-0 right-0 h-16 bg-surface-container-low/95 backdrop-blur-xl border-t border-surface-container-high/50 flex items-center justify-around z-40 px-6">
+      <button onclick="switchMainTab('library')" id="nav-btn-library" class="flex flex-col items-center gap-0.5 text-primary-container transition-colors">
+        <span class="material-symbols-outlined text-[24px]">photo_library</span>
+        <span class="text-[10px] font-medium tracking-tight">Photos</span>
+      </button>
+      <button onclick="switchMainTab('remind')" id="nav-btn-remind" class="flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+        <span class="text-[10px] font-medium tracking-tight">ReMind AI</span>
+      </button>
+      <!-- Home Indicator Pill Bar -->
+      <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-28 h-1 rounded-full bg-white/25 pointer-events-none"></div>
+    </nav>
+
+    <!-- =============================================================== -->
+    <!-- MODAL: PHOTO DETAILS PREVIEW (For Photos clicked in Library)     -->
+    <!-- =============================================================== -->
+    <div id="photo-detail-modal" class="hidden absolute inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+      <div class="w-full max-w-sm bg-surface-container rounded-2xl overflow-hidden border border-surface-container-high shadow-2xl flex flex-col">
+        <div class="relative aspect-[4/3] bg-surface-container-lowest">
+          <img id="modal-detail-img" src="" alt="Photo Detail" class="w-full h-full object-cover"/>
+          <button onclick="closePhotoModal()" class="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/80 transition-all">
+            <span class="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        </div>
+        <div class="p-4 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <span id="modal-detail-id" class="text-xs font-bold text-primary">raj_palace_001</span>
+            <span id="modal-detail-date" class="text-xs text-on-surface-variant">2025-11-15</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-on-surface font-semibold">
+            <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+            <span id="modal-detail-location">Rajasthan</span>
+          </div>
+          <p id="modal-detail-desc" class="text-xs text-on-surface-variant leading-relaxed">
+            Visual description of the photo...
+          </p>
+          <div id="modal-detail-tags" class="flex flex-wrap gap-1 pt-1"></div>
+          <button id="modal-detail-remind-cta" class="mt-2 w-full py-2.5 rounded-xl bg-primary-container text-on-primary-container text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+            <span>Reconstruct memories around this</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============================================================== -->
+    <!-- MODAL: CELEBRATION METRICS                                       -->
+    <!-- =============================================================== -->
+    <div id="celebration-modal" class="hidden absolute inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+      <div class="w-full max-w-xs bg-surface-container-high rounded-3xl p-6 border border-surface-container-highest shadow-2xl flex flex-col items-center text-center gap-4">
+        <div class="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[36px]">celebration</span>
+        </div>
+        <div class="flex flex-col gap-1">
+          <h2 class="text-xl font-bold text-on-surface">Memory Retrieved!</h2>
+          <p id="modal-summary-text" class="text-xs text-on-surface-variant leading-relaxed">
+            Successfully reconstructed your memory from 740 candidates!
+          </p>
+        </div>
+
+        <div class="w-full grid grid-cols-2 gap-2 p-3 rounded-2xl bg-surface-container">
+          <div class="flex flex-col items-center">
+            <span id="modal-turns" class="text-lg font-bold text-primary">1</span>
+            <span class="text-[10px] text-on-surface-variant uppercase font-medium">Refinement Turns</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span id="modal-viewed" class="text-lg font-bold text-secondary">20</span>
+            <span class="text-[10px] text-on-surface-variant uppercase font-medium">Photos Evaluated</span>
+          </div>
+        </div>
+
+        <button onclick="restartSearchFlow()" class="w-full py-3 rounded-full bg-primary-container hover:bg-primary text-on-primary-container text-xs font-bold shadow-md active:scale-95 transition-all">
+          Done & Return to Library
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- APPLICATION SCRIPT LOGIC -->
+  <script>
+    // Global Application State
+    let currentMainTab = 'library'; // 'library' or 'remind'
+    let currentStep = 1;
+    let sessionId = null;
+    let candidatePhotos = [];
+    let selectedHeroPhoto = null;
+    let currentRefinement = null;
+    let extractedClues = null;
+    let activeClusterFilter = 'all';
+
+    // -------------------------------------------------------------
+    // Main Tab Switching (Photos Library vs ReMind AI)
+    // -------------------------------------------------------------
+    function switchMainTab(tab) {
+      currentMainTab = tab;
+      const viewLibrary = document.getElementById('view-library');
+      const viewRemind = document.getElementById('view-remind');
+      const navBtnLibrary = document.getElementById('nav-btn-library');
+      const navBtnRemind = document.getElementById('nav-btn-remind');
+      const headerSubtitle = document.getElementById('header-subtitle');
+      const backBtn = document.getElementById('header-back-btn');
+      const progressBar = document.getElementById('remind-progress-bar');
+
+      if (tab === 'library') {
+        viewLibrary.classList.remove('hidden');
+        viewRemind.classList.add('hidden');
+        navBtnLibrary.className = "flex flex-col items-center gap-0.5 text-primary-container transition-colors";
+        navBtnRemind.className = "flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors";
+        headerSubtitle.textContent = "Photos Library";
+        backBtn.classList.add('hidden');
+        progressBar.classList.add('hidden');
+        const appMain = document.getElementById('app-main');
+        if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        viewLibrary.classList.add('hidden');
+        viewRemind.classList.remove('hidden');
+        navBtnRemind.className = "flex flex-col items-center gap-0.5 text-primary-container transition-colors";
+        navBtnLibrary.className = "flex flex-col items-center gap-0.5 text-on-surface-variant hover:text-on-surface transition-colors";
+        headerSubtitle.textContent = `Memory Search • Step ${currentStep} of 5`;
+        backBtn.classList.remove('hidden');
+        progressBar.classList.remove('hidden');
+        navigateToStep(currentStep);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Library View: Fetch & Render Photos
+    // -------------------------------------------------------------
+    async function filterLibraryCluster(clusterId) {
+      activeClusterFilter = clusterId;
+      document.querySelectorAll('.cluster-chip').forEach(btn => {
+        btn.className = "shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-bright text-xs font-medium transition-all";
+      });
+      const activeBtn = document.getElementById(`chip-${clusterId}`);
+      if (activeBtn) {
+        activeBtn.className = "shrink-0 cluster-chip px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold shadow-sm transition-all";
+      }
+      await loadLibraryPhotos(clusterId);
+    }
+
+    async function loadLibraryPhotos(clusterId = 'all') {
+      const grid = document.getElementById('library-grid');
+      const loader = document.getElementById('library-loading');
+      loader.classList.remove('hidden');
+      grid.innerHTML = "";
+
+      try {
+        const url = clusterId === 'all' 
+          ? `/api/library?limit=90` 
+          : `/api/library?cluster=${clusterId}&limit=90`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Failed to load photo library");
+        const data = await res.json();
+
+        document.getElementById('library-total-count').textContent = `${data.total} photos`;
+
+        data.photos.forEach(photo => {
+          const item = document.createElement('div');
+          item.className = "relative aspect-square rounded-xl overflow-hidden bg-surface-container cursor-pointer group border border-surface-container-high/40 hover:border-primary-container/80 transition-all active:scale-[0.98]";
+          item.innerHTML = `
+            <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" loading="lazy" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='${photo.full_url}'"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-1.5">
+              <span class="text-[9px] text-on-surface font-medium truncate">${photo.location || photo.photo_id}</span>
+            </div>
+          `;
+          item.onclick = () => openPhotoModal(photo);
+          grid.appendChild(item);
+        });
+      } catch (err) {
+        grid.innerHTML = `<div class="col-span-3 text-center py-8 text-xs text-error">Failed to load library: ${err.message}</div>`;
+      } finally {
+        loader.classList.add('hidden');
+      }
+    }
+
+    function openPhotoModal(photo) {
+      const modal = document.getElementById('photo-detail-modal');
+      document.getElementById('modal-detail-img').src = photo.full_url;
+      document.getElementById('modal-detail-id').textContent = photo.photo_id;
+      document.getElementById('modal-detail-date').textContent = photo.date || "November 2025";
+      document.getElementById('modal-detail-location').textContent = `${photo.location} • ${photo.event || 'Moment'}`;
+      document.getElementById('modal-detail-desc').textContent = photo.visual_description;
+
+      const tagsContainer = document.getElementById('modal-detail-tags');
+      tagsContainer.innerHTML = "";
+      if (photo.setting) {
+        tagsContainer.innerHTML += `<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-[10px] text-on-surface">${photo.setting}</span>`;
+      }
+      if (photo.time_of_day) {
+        tagsContainer.innerHTML += `<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-[10px] text-on-surface">${photo.time_of_day}</span>`;
+      }
+      if (photo.people && photo.people.length > 0) {
+        tagsContainer.innerHTML += `<span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-[10px] text-primary">${photo.people.join(", ")}</span>`;
+      }
+
+      document.getElementById('modal-detail-remind-cta').onclick = () => {
+        closePhotoModal();
+        setAnchor(photo.visual_description);
+        switchMainTab('remind');
+      };
+
+      modal.classList.remove('hidden');
+    }
+
+    function closePhotoModal() {
+      document.getElementById('photo-detail-modal').classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------
+    // ReMind Flow Navigation
+    // -------------------------------------------------------------
+    function navigateToStep(step) {
+      currentStep = step;
+      [1, 2, 3, 4, 5].forEach(i => {
+        const el = document.getElementById(`screen-${i}`);
+        if (el) {
+          if (i === step) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        }
+        
+        const prog = document.getElementById(`prog-${i}`);
+        if (prog) {
+          if (i <= step) {
+            prog.className = "h-1 rounded-full bg-primary-container transition-all duration-300";
+          } else {
+            prog.className = "h-1 rounded-full bg-surface-container-highest transition-all duration-300";
+          }
+        }
+      });
+
+      const subtitle = document.getElementById('header-subtitle');
+      if (currentMainTab === 'remind') {
+        const stepNames = ["", "Memory Search", "Understanding", "Candidates Grid", "Refinement", "Match Found"];
+        subtitle.textContent = `Step ${step} of 5: ${stepNames[step]}`;
+      }
+      const appMain = document.getElementById('app-main');
+      if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleNavigationBack() {
+      if (currentStep === 1) {
+        switchMainTab('library');
+      } else {
+        navigateToStep(currentStep - 1);
+      }
+    }
+
+    function setAnchor(text) {
+      const input = document.getElementById('memory-input');
+      input.value = text;
+      input.focus();
+    }
+
+    // -------------------------------------------------------------
+    // Step 1: Submit Memory Search -> Enter Conversational Flow
+    // -------------------------------------------------------------
+    async function submitMemorySearch() {
+      const input = document.getElementById('memory-input');
+      const query = input.value.trim();
+      if (!query) {
+        alert("Please describe what you remember about the photo.");
+        input.focus();
+        return;
+      }
+
+      const btn = document.getElementById('btn-search-submit');
+      const label = document.getElementById('btn-search-label');
+      btn.disabled = true;
+      label.textContent = "Analyzing Memory...";
+
+      try {
+        // 1. Create Session
+        const searchRes = await fetch('/api/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query })
+        });
+        if (!searchRes.ok) throw new Error("Search initiation failed");
+        const searchData = await searchRes.json();
+        sessionId = searchData.session_id;
+
+        // 2. Fetch candidates & refinement questions directly
+        const candRes = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId })
+        });
+        if (!candRes.ok) throw new Error("Candidate retrieval failed");
+        const candData = await candRes.json();
+        candidatePhotos = candData.candidates;
+
+        // 3. Launch conversational workflow
+        initConversationalWorkflow(query, candData);
+
+      } catch (err) {
+        alert("Error during memory search: " + err.message);
+      } finally {
+        btn.disabled = false;
+        label.textContent = "Find my memory";
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Conversational Workflow Engine
+    // -------------------------------------------------------------
+    function initConversationalWorkflow(query, data) {
+      // Hide other screens and show screen-conversational
+      [1, 2, 3, 4, 5].forEach(i => {
+        const el = document.getElementById(`screen-${i}`);
+        if (el) el.classList.add('hidden');
+      });
+      const convScreen = document.getElementById('screen-conversational');
+      convScreen.classList.remove('hidden');
+
+      const subtitle = document.getElementById('header-subtitle');
+      if (subtitle) subtitle.textContent = "Memory Assistant";
+
+      const stream = document.getElementById('chat-stream');
+      stream.innerHTML = "";
+
+      // 1. Append User's Initial Query
+      appendUserMessage(query);
+
+      // 2. Append System Assistant Response with Multi-Facets
+      const ref = data.refinement;
+      const summary = ref?.summary_message || `I found ${data.total} possible photos from your library.`;
+      const prompt = ref?.follow_up_prompt || "Do you remember anything else?";
+      const facets = ref?.facets || [];
+
+      appendSystemMessage(summary, prompt, facets);
+
+      // 3. Render candidates in photo grid
+      renderConvCandidates(data.candidates, data.total);
+      hideConvHeroCard();
+      const appMain = document.getElementById('app-main');
+      if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function appendUserMessage(text) {
+      const stream = document.getElementById('chat-stream');
+      const userDiv = document.createElement('div');
+      userDiv.className = "flex items-start justify-end gap-2.5 animate-fade-in";
+      userDiv.innerHTML = `
+        <div class="flex flex-col items-end max-w-[85%]">
+          <div class="px-4 py-2.5 rounded-2xl rounded-tr-sm bg-primary-container text-on-primary-container text-xs font-semibold shadow-sm">
+            “${escapeHtml(text)}”
+          </div>
+          <span class="text-[10px] text-on-surface-variant/70 mt-0.5 px-1 font-medium">You</span>
+        </div>
+        <div class="w-7 h-7 rounded-full bg-primary-container/30 flex items-center justify-center text-primary text-xs font-bold shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">person</span>
+        </div>
+      `;
+      stream.appendChild(userDiv);
+      userDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function appendSystemMessage(summary, prompt, facets = [], hintKeywords = []) {
+      const stream = document.getElementById('chat-stream');
+      const sysDiv = document.createElement('div');
+      sysDiv.className = "flex items-start gap-2.5 animate-fade-in";
+
+      let facetsHtml = "";
+
+      // Check if this is the "What do you remember more?" screen after "No"
+      const isMoreClues = (prompt && prompt.toLowerCase().includes("remember more")) ||
+                          (summary && summary.toLowerCase().includes("remember more")) ||
+                          (facets && facets.some(f => f.title && f.title.toLowerCase().includes("hint")));
+
+      // Check if this message asks for photo recognition ("Do you recognize any of these photos?")
+      const isRecognition = !isMoreClues && (
+        (prompt && prompt.toLowerCase().includes("recognize")) || 
+        (summary && summary.toLowerCase().includes("recognize")) ||
+        (facets && facets.some(f => f.dimension === "recognition" || (f.options && f.options.includes("Yes") && f.options.includes("No"))))
+      );
+
+      if (isRecognition) {
+        facetsHtml = `
+          <div class="flex items-center gap-2 pt-2.5 mt-2 border-t border-surface-container-highest/60">
+            <button onclick="handleRecognitionAnswer(true)" class="flex-1 py-2 px-3 rounded-xl bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-sm transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              <span>Yes</span>
+            </button>
+            <button onclick="handleRecognitionAnswer(false)" class="flex-1 py-2 px-3 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface font-semibold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">cancel</span>
+              <span>No</span>
+            </button>
+          </div>
+        `;
+      } else if (isMoreClues) {
+        const hints = (hintKeywords && hintKeywords.length > 0) ? hintKeywords : (facets && facets.length > 0 ? facets[0].options : []);
+        facetsHtml = `
+          <!-- Inline Input Window -->
+          <div class="flex flex-col gap-2.5 pt-2 mt-2 border-t border-surface-container-highest/60">
+            <div class="flex items-center gap-1.5 bg-surface-container-lowest border border-surface-container-highest rounded-xl p-1 shadow-inner focus-within:border-primary transition-all">
+              <input id="inline-more-clue-input" type="text" placeholder="Type another detail you remember..." class="flex-1 bg-transparent px-2.5 py-1.5 text-xs text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none" onkeydown="if(event.key==='Enter')submitInlineClueInput(this.value)" />
+              <button onclick="submitInlineClueInput(document.getElementById('inline-more-clue-input').value)" class="px-3 py-1.5 rounded-lg bg-primary hover:bg-primary-hover text-on-primary font-bold text-xs flex items-center justify-center gap-1 active:scale-95 transition-all cursor-pointer shadow-sm">
+                <span class="material-symbols-outlined text-[14px]">send</span>
+                <span>Refine</span>
+              </button>
+            </div>
+
+            ${hints.length > 0 ? `
+              <div class="flex flex-col gap-1.5">
+                <span class="text-[11px] font-bold text-primary flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[13px] text-secondary">auto_awesome</span>
+                  Hint keywords:
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  ${hints.map(h => `
+                    <button onclick="sendConvConstraint('visual', '${escapeHtml(h)}')" class="px-2.5 py-1 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface text-xs font-medium flex items-center gap-1 active:scale-95 transition-all shadow-sm cursor-pointer hover:border-primary/50">
+                      <span class="material-symbols-outlined text-[12px] text-secondary">auto_awesome</span>
+                      <span>${escapeHtml(h)}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+        setTimeout(() => {
+          const el = document.getElementById('inline-more-clue-input');
+          if (el) el.focus();
+        }, 150);
+      } else if (facets && facets.length > 0) {
+        facetsHtml += `<div class="flex flex-col gap-3 pt-2 mt-2 border-t border-surface-container-highest/60">`;
+        facets.forEach(facet => {
+          facetsHtml += `
+            <div class="flex flex-col gap-1.5">
+              <span class="text-xs font-bold text-primary">${facet.title}</span>
+              <div class="flex flex-wrap gap-1.5">
+                ${facet.options.map(opt => `
+                  <button onclick="sendConvConstraint('${facet.dimension}', '${escapeHtml(opt)}')" class="px-3 py-1.5 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface text-xs font-medium active:scale-95 transition-all shadow-sm">
+                    ${escapeHtml(opt)}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        });
+        facetsHtml += `</div>`;
+      }
+
+      sysDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+        </div>
+        <div class="flex flex-col max-w-[90%]">
+          <div class="p-3.5 rounded-2xl rounded-tl-sm bg-surface-container-high text-on-surface text-xs flex flex-col gap-1.5 shadow-sm border border-surface-container-highest/60">
+            <p class="font-semibold text-on-surface text-xs leading-snug">${escapeHtml(summary)}</p>
+            ${prompt ? `<p class="text-[11px] text-on-surface-variant font-medium">${escapeHtml(prompt)}</p>` : ''}
+            ${facetsHtml}
+          </div>
+          <span class="text-[10px] text-on-surface-variant/70 mt-0.5 px-1 font-medium">ReMind AI</span>
+        </div>
+      `;
+      stream.appendChild(sysDiv);
+      sysDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function submitInlineClueInput(val) {
+      if (!val || !val.trim()) return;
+      sendConvConstraint("visual", val.trim());
+    }
+
+    function handleRecognitionAnswer(isYes) {
+      if (isYes) {
+        appendUserMessage("Yes");
+        if (candidatePhotos && candidatePhotos.length > 0) {
+          showConvHeroCard(candidatePhotos[0]);
+          appendSystemMessage(
+            "Great! I've selected the top match above for you.",
+            "Is this the one? Tap 'Yes, that's it!' on the card, or tap any other photo below to inspect."
+          );
+        } else {
+          appendSystemMessage("Great! Tap the photo you recognize in the grid below to inspect and confirm.");
+        }
+      } else {
+        hideConvHeroCard();
+        sendConvConstraint("recognition", "No");
+      }
+    }
+
+    function getFallbackRefinementFacets() {
+      const facets = [];
+      if (candidatePhotos && candidatePhotos.length > 0) {
+        const hasOutdoor = candidatePhotos.some(c => (c.setting || '').toLowerCase().includes('outdoor'));
+        const hasIndoor = candidatePhotos.some(c => (c.setting || '').toLowerCase().includes('indoor'));
+        if (hasOutdoor && hasIndoor) {
+          facets.push({
+            title: "Setting?",
+            dimension: "setting",
+            options: ["Outdoors in open air", "Indoors inside", "Not sure"]
+          });
+        }
+        const times = new Set(candidatePhotos.map(c => (c.time_of_day || '').toLowerCase()).filter(Boolean));
+        if (times.size > 1) {
+          const opts = [];
+          if (times.has('day')) opts.push('During the day');
+          if (times.has('evening')) opts.push('In the evening / dusk');
+          if (times.has('night')) opts.push('At night');
+          opts.push('Not sure');
+          facets.push({
+            title: "Time of day?",
+            dimension: "time_of_day",
+            options: opts
+          });
+        }
+      }
+      return facets;
+    }
+
+    async function sendConvConstraint(dimension, value) {
+      if (!sessionId) return;
+      appendUserMessage(value);
+
+      const stream = document.getElementById('chat-stream');
+      const typingDiv = document.createElement('div');
+      typingDiv.id = "typing-indicator";
+      typingDiv.className = "flex items-center gap-2 px-3 py-1.5 text-xs text-on-surface-variant animate-pulse";
+      typingDiv.innerHTML = `<span class="material-symbols-outlined text-[16px] text-primary">psychology</span><span>Refining candidates...</span>`;
+      stream.appendChild(typingDiv);
+      typingDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      try {
+        const res = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            constraint: { dimension: dimension || "visual", value }
+          })
+        });
+        if (!res.ok) throw new Error("Refinement failed");
+        const data = await res.json();
+        candidatePhotos = data.candidates;
+
+        typingDiv.remove();
+
+        const bannerMsg = data.banner_message || `I found ${data.total} photos that may match.`;
+        const ref = data.refinement;
+        const nextFacets = ref?.facets || [];
+        const nextHints = ref?.hint_keywords || [];
+        const nextPrompt = ref?.follow_up_prompt || (ref?.question || "");
+        appendSystemMessage(bannerMsg, nextPrompt, nextFacets, nextHints);
+
+        renderConvCandidates(data.candidates, data.total);
+
+        if (data.candidates && data.candidates.length > 0) {
+          if (data.candidates.length <= 3) {
+            showConvHeroCard(data.candidates[0]);
+          }
+        }
+      } catch (err) {
+        typingDiv.remove();
+        alert("Error during refinement: " + err.message);
+      }
+    }
+
+    function submitConvInput() {
+      const input = document.getElementById('conv-chat-input');
+      const val = input.value.trim();
+      if (!val) return;
+      input.value = "";
+      const vLower = val.toLowerCase();
+      if (vLower === "yes" || vLower === "y" || vLower === "yeah" || vLower === "yep" || vLower.startsWith("yes")) {
+        handleRecognitionAnswer(true);
+        return;
+      }
+      if (vLower === "no" || vLower === "n" || vLower === "nope" || vLower.startsWith("no")) {
+        handleRecognitionAnswer(false);
+        return;
+      }
+      if (vLower.includes("not sure") || vLower.includes("dont know") || vLower.includes("don't know") || vLower.includes("no idea") || vLower.includes("unsure")) {
+        sendConvConstraint("general", val);
+        return;
+      }
+      sendConvConstraint("visual", val);
+    }
+
+    function renderConvCandidates(photos, total) {
+      const countBadge = document.getElementById('conv-candidates-count-badge');
+      if (countBadge) countBadge.textContent = `${total} photo${total === 1 ? '' : 's'}`;
+
+      const grid = document.getElementById('conv-candidates-grid');
+      if (!grid) return;
+      grid.innerHTML = "";
+
+      photos.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = "relative aspect-square rounded-xl overflow-hidden bg-surface-container cursor-pointer border border-surface-container-high/60 hover:border-primary transition-all active:scale-95 group shadow-sm";
+        const pct = Math.round(photo.score * 100);
+        card.innerHTML = `
+          <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='${photo.full_url}'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-1 left-1.5 right-1.5 flex items-center justify-between pointer-events-none">
+            <span class="text-[9px] text-white font-medium truncate">${photo.photo_id}</span>
+            <span class="text-[9px] text-secondary font-bold">${pct}%</span>
+          </div>
+        `;
+        card.onclick = () => showConvHeroCard(photo);
+        grid.appendChild(card);
+      });
+    }
+
+    function showConvHeroCard(photo) {
+      selectedHeroPhoto = photo;
+      const card = document.getElementById('conv-hero-card');
+      const img = document.getElementById('conv-hero-img');
+      img.src = photo.full_url;
+      img.onerror = () => { img.src = photo.thumbnail_url; };
+
+      const pct = Math.round(photo.score * 100);
+      document.getElementById('conv-hero-pct').textContent = `${pct}% match`;
+      document.getElementById('conv-hero-date').textContent = photo.date || "Recognized Memory";
+      document.getElementById('conv-hero-loc').textContent = photo.location || photo.photo_id;
+      document.getElementById('conv-hero-desc').textContent = photo.visual_description;
+
+      card.classList.remove('hidden');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function hideConvHeroCard(triggerRejection = false) {
+      const card = document.getElementById('conv-hero-card');
+      if (card) card.classList.add('hidden');
+      if (triggerRejection) {
+        if (selectedHeroPhoto && candidatePhotos) {
+          candidatePhotos = candidatePhotos.filter(c => c.photo_id !== selectedHeroPhoto.photo_id);
+        }
+        sendConvConstraint("recognition", "No");
+      }
+    }
+
+    function restartSearch() {
+      const convScreen = document.getElementById('screen-conversational');
+      if (convScreen) convScreen.classList.add('hidden');
+      const s1 = document.getElementById('screen-1');
+      if (s1) s1.classList.remove('hidden');
+      const input = document.getElementById('memory-input');
+      if (input) {
+        input.value = "";
+        input.focus();
+      }
+      const subtitle = document.getElementById('header-subtitle');
+      if (subtitle) subtitle.textContent = "Memory Search";
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str).replace(/[&<>"']/g, function(m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m];
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Step 2: Render Understanding
+    // -------------------------------------------------------------
+    function renderUnderstandingScreen(rawQuery, data) {
+      document.getElementById('recap-query-text').textContent = `“${rawQuery}”`;
+      renderChipsCloud(data.chips);
+      renderClueCards(data.clues);
+    }
+
+    function renderChipsCloud(chips) {
+      const cloud = document.getElementById('chips-cloud');
+      cloud.innerHTML = "";
+      chips.forEach((chip, index) => {
+        const badge = document.createElement('div');
+        badge.className = "flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium border border-surface-container-highest shadow-sm";
+        badge.innerHTML = `
+          <span>${chip}</span>
+          <button onclick="removeChip(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center">
+            <span class="material-symbols-outlined text-[14px]">close</span>
+          </button>
+        `;
+        cloud.appendChild(badge);
+      });
+    }
+
+    function removeChip(index) {
+      const cloud = document.getElementById('chips-cloud');
+      if (cloud.children[index]) {
+        cloud.children[index].remove();
+      }
+    }
+
+    function handleAddCustomClue() {
+      const input = document.getElementById('add-clue-input');
+      const val = input.value.trim();
+      if (!val) return;
+      const cloud = document.getElementById('chips-cloud');
+      const idx = cloud.children.length;
+      const badge = document.createElement('div');
+      badge.className = "flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/20 text-primary text-xs font-semibold border border-primary-container/40 shadow-sm";
+      badge.innerHTML = `
+        <span>${val}</span>
+        <button onclick="removeChip(${idx})" class="text-primary hover:text-error transition-colors flex items-center">
+          <span class="material-symbols-outlined text-[14px]">close</span>
+        </button>
+      `;
+      cloud.appendChild(badge);
+      input.value = "";
+    }
+
+    function renderClueCards(clues) {
+      const container = document.getElementById('clue-cards-container');
+      container.innerHTML = "";
+
+      const items = [
+        { label: "Location Context", val: clues.location, icon: "location_on", conf: clues.confidence.location },
+        { label: "Place / Scene Type", val: clues.scene, icon: "museum", conf: clues.confidence.scene },
+        { label: "Social Context", val: clues.people ? clues.people.join(", ") : null, icon: "group", conf: clues.confidence.people },
+        { label: "Time & Ambiance", val: clues.time, icon: "wb_twilight", conf: clues.confidence.time }
+      ].filter(i => i.val);
+
+      if (items.length === 0) {
+        items.push({ label: "Visual Semantics", val: clues.visual_details || "Ambient recollection", icon: "auto_awesome", conf: 0.85 });
+      }
+
+      items.forEach(item => {
+        const isHigh = item.conf >= 0.7;
+        const confBadge = isHigh
+          ? `<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>High confidence</div>`
+          : `<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Inferred</div>`;
+
+        const card = document.createElement('div');
+        card.className = "flex flex-col bg-surface-container rounded-xl p-3.5 shadow-sm border border-surface-container-high/60";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[18px] text-primary">${item.icon}</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-[11px] text-on-surface-variant font-medium">${item.label}</span>
+                <span class="text-sm font-semibold text-on-surface truncate capitalize">${item.val}</span>
+              </div>
+            </div>
+            ${confBadge}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function submitFindPhotos() {
+      const btn = document.getElementById('btn-understand-submit');
+      btn.disabled = true;
+      btn.innerHTML = `<span>Retrieving Candidates...</span>`;
+
+      try {
+        const candRes = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId })
+        });
+        if (!candRes.ok) throw new Error("Candidates retrieval failed");
+        const candData = await candRes.json();
+        candidatePhotos = candData.candidates;
+
+        renderCandidates(candData);
+        navigateToStep(3);
+      } catch (err) {
+        alert("Error retrieving candidates: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Find photos</span><span class="material-symbols-outlined text-[18px]">photo_library</span>`;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Step 3: Render Candidates Grid
+    // -------------------------------------------------------------
+    function renderCandidates(candData) {
+      const heading = document.getElementById('candidates-count-heading');
+      heading.textContent = `I found ${candData.total} possibilities`;
+
+      const ribbon = document.getElementById('candidates-ribbon');
+      ribbon.innerHTML = "";
+      if (extractedClues) {
+        if (extractedClues.location) {
+          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>📍</span><span>${extractedClues.location}</span></div>`;
+        }
+        if (extractedClues.scene) {
+          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>🏛️</span><span class="capitalize">${extractedClues.scene}</span></div>`;
+        }
+      }
+      ribbon.innerHTML += `<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-secondary text-[11px] shrink-0 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span>${candData.total} candidates</span></div>`;
+
+      const grid = document.getElementById('candidates-grid');
+      grid.innerHTML = "";
+
+      candData.candidates.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = "candidate-card relative aspect-square rounded-xl overflow-hidden bg-surface-container cursor-pointer select-none border border-surface-container-high/40 hover:border-primary-container/80 transition-all active:scale-[0.98] group";
+        
+        const pct = Math.round(photo.score * 100);
+        card.innerHTML = `
+          <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='${photo.full_url}'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-1.5 left-2 right-2 flex items-center justify-between pointer-events-none">
+            <span class="text-[10px] text-on-surface font-semibold truncate drop-shadow">${photo.location || photo.photo_id}</span>
+            <span class="text-[9px] text-secondary font-bold">${pct}%</span>
+          </div>
+        `;
+
+        card.onclick = () => selectCandidateForPreview(photo);
+        grid.appendChild(card);
+      });
+    }
+
+    function selectCandidateForPreview(photo) {
+      selectedHeroPhoto = photo;
+      renderHeroMatch(photo);
+      navigateToStep(5);
+    }
+
+    // -------------------------------------------------------------
+    // Step 4: Refinement Loop (Uncertainty Analysis)
+    // -------------------------------------------------------------
+    async function triggerRefinementLoop() {
+      try {
+        const refineRes = await fetch('/api/refine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId })
+        });
+        if (!refineRes.ok) throw new Error("Refinement question generation failed");
+        currentRefinement = await refineRes.json();
+
+        if (candidatePhotos.length <= 3 && candidatePhotos.length > 0) {
+          selectCandidateForPreview(candidatePhotos[0]);
+          return;
+        }
+
+        renderRefinementScreen(currentRefinement);
+        navigateToStep(4);
+      } catch (err) {
+        alert("Error generating refinement question: " + err.message);
+      }
+    }
+
+    function renderRefinementScreen(refine) {
+      document.getElementById('refine-candidates-badge').textContent = `These ${candidatePhotos.length} look closer`;
+      document.getElementById('refine-question-text').textContent = refine.question || "What else do you remember?";
+
+      const strip = document.getElementById('refine-horizontal-strip');
+      strip.innerHTML = "";
+      candidatePhotos.slice(0, 10).forEach(photo => {
+        const item = document.createElement('div');
+        item.className = "relative flex-shrink-0 w-20 h-28 rounded-xl overflow-hidden bg-surface-container-low shadow-md border border-surface-container-high/40";
+        item.innerHTML = `
+          <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover" onerror="this.src='${photo.full_url}'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent"></div>
+          <span class="absolute bottom-1 left-1.5 text-[9px] text-on-surface/90 font-medium truncate">${photo.photo_id}</span>
+        `;
+        strip.appendChild(item);
+      });
+
+      const container = document.getElementById('refine-options-container');
+      container.innerHTML = "";
+
+      const isRecognition = refine.dimension === "recognition_ready" || refine.dimension === "recognition" ||
+        (refine.options && refine.options.includes("Yes") && refine.options.includes("No"));
+
+      if (isRecognition) {
+        container.innerHTML = `
+          <div class="flex items-center gap-2 pt-1">
+            <button onclick="handleScreen4Recognition(true)" class="flex-1 py-3 px-3 rounded-xl bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow-sm transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">check_circle</span>
+              <span>Yes, I recognize one</span>
+            </button>
+            <button onclick="handleScreen4Recognition(false)" class="flex-1 py-3 px-3 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface font-semibold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">cancel</span>
+              <span>No, keep looking</span>
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Check if multi-facets exist
+      if (refine.facets && refine.facets.length > 0) {
+        refine.facets.forEach(facet => {
+          const facetDiv = document.createElement('div');
+          facetDiv.className = "flex flex-col gap-2 pt-2 border-t border-surface-container-highest/60 first:border-t-0 first:pt-0";
+          facetDiv.innerHTML = `<span class="text-xs font-bold text-primary">${escapeHtml(facet.title)}</span>`;
+          const optsDiv = document.createElement('div');
+          optsDiv.className = "flex flex-wrap gap-2";
+          facet.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = "px-3.5 py-2 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface text-xs font-medium active:scale-95 transition-all shadow-sm";
+            btn.textContent = opt;
+            btn.onclick = () => applyRefinementConstraint(facet.dimension, opt);
+            optsDiv.appendChild(btn);
+          });
+          facetDiv.appendChild(optsDiv);
+          container.appendChild(facetDiv);
+        });
+      } else if (refine.options && refine.options.length > 0) {
+        refine.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = "w-full p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface text-xs font-medium flex items-center justify-between active:scale-[0.99] transition-all";
+          btn.innerHTML = `
+            <span>${escapeHtml(opt)}</span>
+            <span class="material-symbols-outlined text-[16px] text-primary">arrow_forward_ios</span>
+          `;
+          btn.onclick = () => applyRefinementConstraint(refine.dimension, opt);
+          container.appendChild(btn);
+        });
+      } else {
+        const fallbacks = getFallbackRefinementFacets();
+        if (fallbacks.length > 0) {
+          fallbacks.forEach(f => {
+            f.options.forEach(opt => {
+              const btn = document.createElement('button');
+              btn.className = "w-full p-3 rounded-xl bg-surface-container hover:bg-surface-container-high border border-surface-container-high text-on-surface text-xs font-medium flex items-center justify-between active:scale-[0.99] transition-all";
+              btn.innerHTML = `<span>${escapeHtml(f.title)}: ${escapeHtml(opt)}</span><span class="material-symbols-outlined text-[16px] text-primary">arrow_forward_ios</span>`;
+              btn.onclick = () => applyRefinementConstraint(f.dimension, opt);
+              container.appendChild(btn);
+            });
+          });
+        }
+      }
+
+      // Add freeform input box in Screen 4 so user can also type clues directly
+      const inputRow = document.createElement('div');
+      inputRow.className = "flex items-center gap-1.5 pt-2 border-t border-surface-container-highest/60";
+      inputRow.innerHTML = `
+        <input id="screen4-clue-input" type="text" placeholder="Type another detail you recall..." class="flex-1 bg-surface-container px-3 py-2 rounded-xl text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none border border-surface-container-high focus:border-primary" onkeydown="if(event.key==='Enter')submitScreen4Clue()"/>
+        <button onclick="submitScreen4Clue()" class="px-3 py-2 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-xs flex items-center gap-1 active:scale-95 transition-all shadow-sm">
+          <span>Refine</span>
+          <span class="material-symbols-outlined text-[14px]">send</span>
+        </button>
+      `;
+      container.appendChild(inputRow);
+    }
+
+    function submitScreen4Clue() {
+      const input = document.getElementById('screen4-clue-input');
+      const val = input ? input.value.trim() : "";
+      if (!val) return;
+      applyRefinementConstraint("visual", val);
+    }
+
+    function handleScreen4Recognition(isYes) {
+      if (isYes) {
+        if (candidatePhotos && candidatePhotos.length > 0) {
+          selectCandidateForPreview(candidatePhotos[0]);
+        }
+      } else {
+        applyRefinementConstraint("recognition", "No");
+      }
+    }
+
+    async function applyRefinementConstraint(dimension, value) {
+      try {
+        const candRes = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            constraint: { dimension, value }
+          })
+        });
+        if (!candRes.ok) throw new Error("Applying constraint failed");
+        const data = await candRes.json();
+        candidatePhotos = data.candidates;
+
+        if (value === "Yes" || dimension === "recognition_ready") {
+          if (candidatePhotos.length > 0) {
+            selectCandidateForPreview(candidatePhotos[0]);
+            return;
+          }
+        }
+
+        if (candidatePhotos.length <= 3 && candidatePhotos.length > 0) {
+          selectCandidateForPreview(candidatePhotos[0]);
+        } else {
+          renderCandidates(data);
+          if (currentStep === 4 && data.refinement) {
+            renderRefinementScreen(data.refinement);
+          } else {
+            navigateToStep(3);
+          }
+        }
+      } catch (err) {
+        alert("Error applying refinement: " + err.message);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Step 5: Render Hero Match & Confirmation
+    // -------------------------------------------------------------
+    function renderHeroMatch(photo) {
+      const img = document.getElementById('hero-photo-img');
+      img.src = photo.full_url;
+      img.onerror = () => { img.src = photo.thumbnail_url; };
+
+      const pct = Math.round(photo.score * 100);
+      document.getElementById('hero-match-pct').textContent = `${pct}% match`;
+      document.getElementById('hero-date-text').textContent = photo.date || "November 2025";
+      document.getElementById('hero-location-text').textContent = photo.location || "Recognized Memory";
+      document.getElementById('hero-desc-text').textContent = photo.visual_description;
+
+      const chipsCont = document.getElementById('hero-chips-container');
+      chipsCont.innerHTML = "";
+
+      if (photo.location) {
+        chipsCont.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs"><span class="material-symbols-outlined text-[14px] text-primary">location_on</span><span>${photo.location}</span></div>`;
+      }
+      if (photo.setting) {
+        chipsCont.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs"><span class="material-symbols-outlined text-[14px] text-tertiary">wb_sunny</span><span class="capitalize">${photo.setting}</span></div>`;
+      }
+      if (photo.time_of_day) {
+        chipsCont.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs"><span class="material-symbols-outlined text-[14px] text-secondary">schedule</span><span class="capitalize">${photo.time_of_day}</span></div>`;
+      }
+      if (photo.people && photo.people.length > 0) {
+        chipsCont.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs"><span class="material-symbols-outlined text-[14px] text-primary">group</span><span>${photo.people.join(", ")}</span></div>`;
+      }
+    }
+
+    async function confirmMatchedPhoto(isConfirmed) {
+      if (!selectedHeroPhoto && candidatePhotos.length > 0) {
+        selectedHeroPhoto = candidatePhotos[0];
+      }
+
+      try {
+        const confirmRes = await fetch('/api/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            photo_id: selectedHeroPhoto ? selectedHeroPhoto.photo_id : "unknown",
+            confirmed: isConfirmed
+          })
+        });
+        if (!confirmRes.ok) throw new Error("Failed to confirm recognition");
+        const confirmData = await confirmRes.json();
+
+        if (isConfirmed) {
+          document.getElementById('modal-turns').textContent = confirmData.metrics.total_turns;
+          document.getElementById('modal-viewed').textContent = confirmData.metrics.photos_viewed;
+          document.getElementById('modal-summary-text').textContent = `Successfully retrieved ${selectedHeroPhoto.photo_id} in ${confirmData.metrics.total_turns} refinement turns!`;
+          document.getElementById('celebration-modal').classList.remove('hidden');
+        } else {
+          // Exclude rejected photo and advance to next best candidate or continue refinement
+          candidatePhotos = candidatePhotos.filter(c => c.photo_id !== (selectedHeroPhoto ? selectedHeroPhoto.photo_id : ''));
+          if (candidatePhotos.length > 0) {
+            selectCandidateForPreview(candidatePhotos[0]);
+          } else {
+            triggerRefinementLoop();
+          }
+        }
+      } catch (err) {
+        alert("Error confirming photo: " + err.message);
+      }
+    }
+
+    function restartSearchFlow() {
+      document.getElementById('celebration-modal').classList.add('hidden');
+      document.getElementById('memory-input').value = "";
+      sessionId = null;
+      candidatePhotos = [];
+      selectedHeroPhoto = null;
+      switchMainTab('library');
+    }
+
+    // Clear input button
+    document.getElementById('clear-btn')?.addEventListener('click', () => {
+      const input = document.getElementById('memory-input');
+      if (input) { input.value = ''; input.focus(); }
+    });
+
+    // Voice simulation
+    let isListening = false;
+    document.getElementById('mic-btn')?.addEventListener('click', () => {
+      const icon = document.getElementById('mic-icon');
+      isListening = !isListening;
+      if (isListening) {
+        icon.textContent = "graphic_eq";
+        icon.className = "material-symbols-outlined text-[18px] text-tertiary animate-pulse";
+      } else {
+        icon.textContent = "mic";
+        icon.className = "material-symbols-outlined text-[18px] text-primary";
+      }
+    });
+
+    // Initialize on load: load authentic library photos!
+    window.addEventListener('DOMContentLoaded', () => {
+      loadLibraryPhotos('all');
+    });
+  </script>
+</body>
+</html>

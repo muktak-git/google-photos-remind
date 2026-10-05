@@ -1,0 +1,12 @@
+.git
+.venv
+__pycache__
+tests
+scratch
+.pytest_cache
+*.log
+extraPhotos
+frontend
+stitch_tool_interface_screen_design
+data/cache_source_photos
+scratch_check_db.py

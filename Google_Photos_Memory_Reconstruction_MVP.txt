@@ -1,0 +1,302 @@
+Google Photos – Memory Reconstruction MVP
+How to Build a Testable MVP
+
+1. What the MVP should prove
+
+The MVP should answer one question:
+
+“Can we help a user retrieve a photo they cannot precisely describe, using progressive memory reconstruction?”
+
+Do not try to prove:
+- Google’s production-scale infrastructure
+- Perfect AI search
+- A complete personal memory graph
+- Proactive memories
+- Full Google Photos integration
+
+These can be later phases.
+
+2. Build a small “Google Photos-like” test library
+
+Create a controlled dataset of around 300–1,000 photos.
+
+Possible sources:
+- Your own photos
+- Public-domain/sample images
+- A synthetic dataset
+
+Organize photos into realistic memory clusters, for example:
+- Goa trip: beach, café, hotel, dinner, friends, sunset
+- Bangalore weekend: restaurant, shopping, park, friends
+- College event: stage, friends, group photos
+- Medical/document photos: medicine, prescriptions, reports
+
+Include distractor photos so retrieval is meaningful.
+
+3. Create metadata for every photo
+
+Create a structured record for each image, for example:
+
+{
+  "photo_id": "goa_023",
+  "date": "2025-12-18",
+  "location": "Goa",
+  "people": ["friend_1", "friend_2"],
+  "event": "Goa Trip",
+  "scene": ["cafe", "indoor"],
+  "objects": ["coffee", "table"],
+  "visual_description": "small cafe with blue wall and wooden tables",
+  "ocr_text": "Cafe..."
+}
+
+Use a multimodal model to generate descriptions/tags instead of manually creating everything.
+
+4. Create the retrieval index
+
+Generate embeddings for each photo’s combined representation:
+visual description + objects + people + location + event + OCR.
+
+For an MVP, possible vector databases/tools include:
+- FAISS
+- Chroma
+- Qdrant
+- Pinecone
+
+Basic architecture:
+
+Photos
+→ Multimodal analysis
+→ Metadata + descriptions
+→ Embeddings
+→ Vector index
+
+5. Build the Memory Understanding module
+
+Create a user input such as:
+
+“What do you remember?”
+
+Example user input:
+“That small café we went to during our Goa trip.”
+
+Send this to an LLM and ask it to produce structured output:
+
+{
+  "location": "Goa",
+  "event": "trip",
+  "scene": "cafe",
+  "people": null,
+  "time": null,
+  "visual_details": [],
+  "confidence": {
+    "location": 0.95,
+    "scene": 0.85,
+    "time": 0.0
+  }
+}
+
+This converts human memory into machine-readable retrieval clues.
+
+6. Retrieve the first candidate set
+
+Use the extracted information to search the index.
+
+Example:
+
+User memory
+→ Goa + trip + cafe
+→ Vector/semantic search + metadata search
+→ Top 20 candidates
+
+UI example:
+
+“I found 20 photos that might match.”
+
+Show the candidates in a visual grid.
+
+7. Add the Memory Refinement Engine
+
+This is where the MVP becomes differentiated.
+
+The engine examines the candidate set and asks:
+
+“What additional clue would reduce uncertainty the most?”
+
+Example candidate distribution:
+- 8 daytime cafés
+- 7 evening cafés
+- 5 beach cafés
+
+Instead of randomly asking for the date, the system could ask:
+
+“Do you remember if it was during the day or evening?”
+
+Options:
+- Day
+- Evening
+- Not sure
+
+8. Re-rank after the user’s answer
+
+If the user selects “Evening”:
+
+20 candidates
+→ Evening constraint
+→ 6 candidates
+
+Show:
+
+“These 6 look closer.”
+
+The user can then recognize the intended photo.
+
+9. MVP workflow
+
+1. User has a vague memory:
+   “That café in Goa…”
+
+2. Memory Understanding:
+   Extract contextual clues.
+
+3. Candidate Retrieval:
+   Find top 20 photos.
+
+4. Uncertainty Analysis:
+   Identify what information would help most.
+
+5. Memory Prompt:
+   “Day or evening?”
+
+6. Re-rank:
+   20 → 6 candidates.
+
+7. Recognition:
+   “That’s the one!”
+
+10. Build a simple UI
+
+You only need 4–5 screens.
+
+Screen 1 – Memory Search
+“What do you remember?”
+Input:
+“That small café we went to during our Goa trip…”
+CTA: “Find my memory”
+
+Screen 2 – Understanding
+“Here’s what I understood”
+- Goa
+- Café
+- Trip
+- Friends – maybe
+CTA: “Find photos”
+
+Screen 3 – Candidates
+“I found 20 possibilities”
+Show photo grid.
+CTA: “Help me narrow it down”
+
+Screen 4 – Memory Refinement
+“What else do you remember?”
+Examples:
+- During the day
+- In the evening
+- Near the beach
+- With friends
+- I don’t remember
+
+Screen 5 – Success
+“I think we found it!”
+Show large photo.
+Question:
+“Is this the photo you remember?”
+Options:
+- Yes, that’s it
+- No, keep looking
+
+11. How to test whether the solution works
+
+Create retrieval tasks for 10–20 users.
+
+Example task:
+“Find the photo from your Goa trip where you were sitting at a café with friends.”
+
+Compare:
+
+Control:
+Normal Google Photos-style search.
+
+Treatment:
+Memory Reconstruction MVP.
+
+Measure:
+
+- Successful retrieval
+- Time to retrieval
+- Number of attempts
+- Photos viewed
+- Abandonment
+- User confidence/satisfaction
+
+Primary metric:
+Successful Vaguely-Remembered Photo Retrieval Rate
+
+12. Test whether progressive refinement adds value
+
+Test three versions:
+
+A. Traditional keyword search
+“Goa café”
+
+B. AI natural-language search
+“Find the café we went to during our Goa trip.”
+
+C. Memory Reconstruction
+“That café from Goa.”
+→ candidates
+→ “Was it near the beach?”
+→ candidates
+→ “Was it in the evening?”
+→ recognition
+
+This helps prove whether the value comes from interactive reconstruction of incomplete memories, rather than AI understanding alone.
+
+Recommended MVP scope
+
+Dataset:
+500–1,000 photos
+
+AI:
+Multimodal LLM for:
+- Image description
+- Memory parsing
+- Refinement-question generation
+
+Retrieval:
+Embeddings + metadata
+
+Ranking:
+Semantic relevance + contextual match
+
+Core innovation:
+Uncertainty-driven refinement
+
+Frontend:
+Simple 5-screen web app
+
+Testing:
+10–20 users × 5 vague-memory tasks
+
+Primary metric:
+Successful Retrieval Rate
+
+Secondary metrics:
+- Time to retrieval
+- Refinement turns
+- Photos viewed
+- Abandonment
+- User satisfaction
+
+Core MVP question:
+
+“When users cannot formulate the right search query, does an AI-guided memory reconstruction loop help them retrieve the intended photo more successfully than conventional search?”
