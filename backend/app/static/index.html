@@ -260,8 +260,8 @@
                   <span class="material-symbols-outlined text-[16px] text-tertiary">lightbulb</span>
                   <span class="text-xs">Sensory anchors active</span>
                 </div>
-                <button id="mic-btn" aria-label="Voice input" class="w-9 h-9 rounded-full bg-surface-container-highest text-primary flex items-center justify-center hover:bg-surface-bright active:scale-95 transition-all" type="button">
-                  <span class="material-symbols-outlined text-[18px]" id="mic-icon">mic</span>
+                <button id="search-send-btn" aria-label="Find my memory" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary active:scale-95 transition-all shadow-sm cursor-pointer" onclick="submitMemorySearch()" type="button">
+                  <span class="material-symbols-outlined text-[18px]">send</span>
                 </button>
               </div>
             </div>
@@ -410,7 +410,7 @@
 
           <!-- Sticky Bottom Conversation Input Bar -->
           <div class="absolute bottom-16 left-0 right-0 p-3 bg-surface/95 backdrop-blur-xl border-t border-surface-container-high/60 z-30 flex items-center gap-2">
-            <input id="conv-chat-input" type="text" placeholder="Type a detail (e.g. 'Blue wall') or tap above..." class="flex-1 bg-surface-container-high text-on-surface text-xs rounded-full px-4 py-2.5 placeholder-on-surface-variant/50 focus:outline-none border border-surface-container-highest focus:border-primary-container" onkeydown="if(event.key==='Enter') submitConvInput()"/>
+            <input id="conv-chat-input" type="text" placeholder="Type a detail (e.g. 'small lake') or tap above..." class="flex-1 bg-surface-container-high text-on-surface text-xs rounded-full px-4 py-2.5 placeholder-on-surface-variant/50 focus:outline-none border border-surface-container-highest focus:border-primary-container" onkeydown="if(event.key==='Enter') submitConvInput()"/>
             <button onclick="submitConvInput()" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary active:scale-95 transition-all shrink-0">
               <span class="material-symbols-outlined text-[18px]">send</span>
             </button>
@@ -851,6 +851,10 @@
     // -------------------------------------------------------------
     function navigateToStep(step) {
       currentStep = step;
+      
+      const convScreen = document.getElementById('screen-conversational');
+      if (convScreen) convScreen.classList.add('hidden');
+
       [1, 2, 3, 4, 5].forEach(i => {
         const el = document.getElementById(`screen-${i}`);
         if (el) {
@@ -873,6 +877,9 @@
         const stepNames = ["", "Memory Search", "Understanding", "Candidates Grid", "Refinement", "Match Found"];
         subtitle.textContent = `Step ${step} of 5: ${stepNames[step]}`;
       }
+      const progressBar = document.getElementById('remind-progress-bar');
+      if (progressBar) progressBar.classList.remove('hidden');
+
       const appMain = document.getElementById('app-main');
       if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -893,7 +900,7 @@
     }
 
     // -------------------------------------------------------------
-    // Step 1: Submit Memory Search -> Enter Conversational Flow
+    // Step 1: Submit Memory Search -> Enter Step 2 (Understanding)
     // -------------------------------------------------------------
     async function submitMemorySearch() {
       const input = document.getElementById('memory-input');
@@ -906,7 +913,9 @@
 
       const btn = document.getElementById('btn-search-submit');
       const label = document.getElementById('btn-search-label');
+      const sendBtn = document.getElementById('search-send-btn');
       btn.disabled = true;
+      if (sendBtn) sendBtn.disabled = true;
       label.textContent = "Analyzing Memory...";
 
       try {
@@ -921,23 +930,25 @@
         sessionId = searchData.session_id;
         currentMemoryQuery = query;
 
-        // 2. Fetch candidates & refinement questions directly
-        const candRes = await fetch('/api/candidates', {
+        // 2. Parse memory into clues and chips for Step 2
+        const underRes = await fetch('/api/understand', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ session_id: sessionId, query: currentMemoryQuery })
         });
-        if (!candRes.ok) throw new Error("Candidate retrieval failed");
-        const candData = await candRes.json();
-        candidatePhotos = candData.candidates;
+        if (!underRes.ok) throw new Error("Memory understanding failed");
+        const underData = await underRes.json();
+        extractedClues = underData.clues;
 
-        // 3. Launch conversational workflow
-        initConversationalWorkflow(query, candData);
+        // 3. Render Step 2 (Understanding) and advance
+        renderUnderstandingScreen(query, underData);
+        navigateToStep(2);
 
       } catch (err) {
         alert("Error during memory search: " + err.message);
       } finally {
         btn.disabled = false;
+        if (sendBtn) sendBtn.disabled = false;
         label.textContent = "Find my memory";
       }
     }
@@ -1314,11 +1325,12 @@
     function renderChipsCloud(chips) {
       const cloud = document.getElementById('chips-cloud');
       cloud.innerHTML = "";
-      chips.forEach((chip, index) => {
+      (chips || []).forEach((chip, index) => {
+        const text = typeof chip === 'string' ? chip : (chip.display_text || chip.value || JSON.stringify(chip));
         const badge = document.createElement('div');
         badge.className = "flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium border border-surface-container-highest shadow-sm";
         badge.innerHTML = `
-          <span>${chip}</span>
+          <span>${escapeHtml(text)}</span>
           <button onclick="removeChip(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center">
             <span class="material-symbols-outlined text-[14px]">close</span>
           </button>
@@ -1510,8 +1522,10 @@
       const container = document.getElementById('refine-options-container');
       container.innerHTML = "";
 
-      const isRecognition = refine.dimension === "recognition_ready" || refine.dimension === "recognition" ||
-        (refine.options && refine.options.includes("Yes") && refine.options.includes("No"));
+      const isRecognition = (candidatePhotos && candidatePhotos.length >= 1 && candidatePhotos.length <= 3) && (
+        refine.dimension === "recognition_ready" || refine.dimension === "recognition" ||
+        (refine.options && refine.options.includes("Yes") && refine.options.includes("No"))
+      );
 
       if (isRecognition) {
         container.innerHTML = `
@@ -1573,11 +1587,32 @@
         }
       }
 
+      // If hint keywords exist, display them as quick chips
+      if (refine.hint_keywords && refine.hint_keywords.length > 0) {
+        const hintsDiv = document.createElement('div');
+        hintsDiv.className = "flex flex-col gap-1.5 pt-2 border-t border-surface-container-highest/60";
+        hintsDiv.innerHTML = `
+          <span class="text-[11px] font-bold text-primary flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px] text-secondary">auto_awesome</span>
+            Suggested hint keywords:
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            ${refine.hint_keywords.map(h => `
+              <button onclick="applyRefinementConstraint('visual', '${escapeHtml(h)}')" class="px-2.5 py-1 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface text-xs font-medium flex items-center gap-1 active:scale-95 transition-all shadow-sm cursor-pointer hover:border-primary/50">
+                <span class="material-symbols-outlined text-[12px] text-secondary">auto_awesome</span>
+                <span>${escapeHtml(h)}</span>
+              </button>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(hintsDiv);
+      }
+
       // Add freeform input box in Screen 4 so user can also type clues directly
       const inputRow = document.createElement('div');
       inputRow.className = "flex items-center gap-1.5 pt-2 border-t border-surface-container-highest/60";
       inputRow.innerHTML = `
-        <input id="screen4-clue-input" type="text" placeholder="Type another detail you recall..." class="flex-1 bg-surface-container px-3 py-2 rounded-xl text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none border border-surface-container-high focus:border-primary" onkeydown="if(event.key==='Enter')submitScreen4Clue()"/>
+        <input id="screen4-clue-input" type="text" placeholder="Type another detail (e.g. 'small lake')..." class="flex-1 bg-surface-container px-3 py-2 rounded-xl text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none border border-surface-container-high focus:border-primary" onkeydown="if(event.key==='Enter')submitScreen4Clue()"/>
         <button onclick="submitScreen4Clue()" class="px-3 py-2 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-xs flex items-center gap-1 active:scale-95 transition-all shadow-sm">
           <span>Refine</span>
           <span class="material-symbols-outlined text-[14px]">send</span>
@@ -1723,19 +1758,7 @@
       if (input) { input.value = ''; input.focus(); }
     });
 
-    // Voice simulation
-    let isListening = false;
-    document.getElementById('mic-btn')?.addEventListener('click', () => {
-      const icon = document.getElementById('mic-icon');
-      isListening = !isListening;
-      if (isListening) {
-        icon.textContent = "graphic_eq";
-        icon.className = "material-symbols-outlined text-[18px] text-tertiary animate-pulse";
-      } else {
-        icon.textContent = "mic";
-        icon.className = "material-symbols-outlined text-[18px] text-primary";
-      }
-    });
+
 
     // Initialize on load: load authentic library photos!
     window.addEventListener('DOMContentLoaded', () => {

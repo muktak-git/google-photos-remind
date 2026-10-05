@@ -25,6 +25,12 @@ async def get_or_refine_candidates(req: CandidatesRequest):
         # 1. Fetch current candidates from session
         existing_candidate_ids = json.loads(session.candidate_ids) if session.candidate_ids else []
         current_candidates = retrieval_service.get_candidates_by_ids(existing_candidate_ids)
+        if not current_candidates:
+            current_candidates = retrieval_service.get_initial_candidates(
+                clues=None,
+                query=effective_query,
+                limit=settings.MAX_CANDIDATES,
+            )
 
         # 2. Record constraint and increment turn
         turn = SessionService.add_constraint(
@@ -34,13 +40,14 @@ async def get_or_refine_candidates(req: CandidatesRequest):
         )
 
         # Reload session from DB to have updated constraints and turn_count
-        session = SessionService.get_session(session.session_id)
+        session = SessionService.get_session(session.session_id, default_query=effective_query)
 
         # 3. Apply constraint filter & re-rank
         updated_candidates, banner_msg = ranking_service.apply_constraint(
             candidates=current_candidates,
             dimension=req.constraint.dimension,
             value=req.constraint.value,
+            original_query=effective_query,
         )
 
         # 4. Save updated candidate IDs to session

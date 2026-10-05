@@ -108,9 +108,12 @@ class RefinementEngine:
             else:
                 summary = "No problem! Let's explore other clues from your photo library."
             follow_up = "Do any of these settings or details sound familiar?"
-        elif current_turn > 1 and len(candidates) <= 3:
+        elif current_turn > 1 and 1 <= len(candidates) <= 6:
             summary = f"I found {len(candidates)} photo{'s' if len(candidates) != 1 else ''} that may match."
             follow_up = "Do you recognize any of these photos?"
+        elif not candidates:
+            summary = "No matching photos found with those specific details."
+            follow_up = "Try describing another detail or hint, such as a small lake, courtyard, or time of day."
         else:
             if main_loc and main_loc.lower() not in ["other", "none", ""]:
                 summary = f"I found {len(candidates)} possible photos from your {main_loc} trip."
@@ -123,12 +126,19 @@ class RefinementEngine:
                 session_id=session_id,
                 dimension="general",
                 question="Could you recall any other specific detail about the photo?",
-                options=["At the palace", "In Coorg", "With friends", "Not sure"],
+                options=["Small lake", "At the palace", "In Coorg", "With friends", "Not sure"],
                 turn=current_turn,
                 candidates_remaining=0,
-                summary_message=summary,
-                follow_up_prompt=follow_up,
-                facets=[],
+                summary_message="No matching photos found with those specific details.",
+                follow_up_prompt="Try describing another detail or hint, such as a small lake, courtyard, or time of day.",
+                facets=[
+                    RefineFacet(
+                        title="Try a different detail hint:",
+                        dimension="visual",
+                        options=["Small lake", "Outdoor courtyard", "Coorg hills", "Palace arch"],
+                    )
+                ],
+                hint_keywords=["Small lake", "Outdoor courtyard", "Coorg hills", "Palace arch"],
             )
 
         facets = RefinementEngine._build_multi_facets(
@@ -140,8 +150,8 @@ class RefinementEngine:
         )
 
         # Recognition trigger:
-        # Trigger recognition when narrowed to <= 6 photos, or if candidate facets are completely exhausted
-        if not is_rejection and ((len(candidates) <= 6 and current_turn > 1) or not facets):
+        # Trigger recognition when successfully narrowed to 1-6 photos, never on 0 or large pools
+        if not is_rejection and (1 <= len(candidates) <= 6 and current_turn > 1):
             recog_facets = [
                 RefineFacet(
                     title="Do you recognize any of these photos?",
@@ -156,10 +166,22 @@ class RefinementEngine:
                 options=["Yes", "No"],
                 turn=current_turn,
                 candidates_remaining=len(candidates),
-                summary_message=summary if (is_not_sure or len(candidates) > 6) else f"I found {len(candidates)} photo{'s' if len(candidates) != 1 else ''} that may match.",
+                summary_message=f"I found {len(candidates)} photo{'s' if len(candidates) != 1 else ''} that may match.",
                 follow_up_prompt="Do you recognize any of these photos?",
                 facets=recog_facets,
             )
+
+        # If multi-facets are empty, build fallback sensory facets from candidates
+        if not facets:
+            smart_hints = await RefinementEngine._generate_embedding_hints(candidates, original_query)
+            clean_hints = [h for h in smart_hints if "blue" not in h.lower()][:4]
+            facets = [
+                RefineFacet(
+                    title="What else do you recall?",
+                    dimension="visual",
+                    options=clean_hints if clean_hints else ["Small lake", "Outdoor", "Green trees", "Not sure"],
+                )
+            ]
 
         # 1. Compute entropy for each candidate dimension not yet asked
         best_dimension, best_entropy, distribution = RefinementEngine._find_best_dimension(
@@ -170,27 +192,6 @@ class RefinementEngine:
             f"Uncertainty Analysis: Selected '{best_dimension}' (Entropy: {best_entropy:.3f}) "
             f"from distribution: {distribution}"
         )
-
-        # 2. Check if entropy is 0 and no facets are available
-        if not facets and (best_entropy <= 0.001 or not distribution):
-            recog_facets = [
-                RefineFacet(
-                    title="Do you recognize any of these photos?",
-                    dimension="recognition",
-                    options=["Yes", "No"],
-                )
-            ]
-            return RefineResponse(
-                session_id=session_id,
-                dimension="recognition_ready",
-                question="Do you recognize any of these photos?",
-                options=["Yes", "No"],
-                turn=current_turn,
-                candidates_remaining=len(candidates),
-                summary_message=f"I found {len(candidates)} photos that may match.",
-                follow_up_prompt="Do you recognize any of these photos?",
-                facets=recog_facets,
-            )
 
         # 3. Prefer primary facet from smart facets
         if facets:
@@ -259,6 +260,7 @@ class RefinementEngine:
 
             if not visual_answered:
                 has_blue = any("blue wall" in c.visual_description.lower() for c in candidates)
+                has_lake = any("lake" in c.visual_description.lower() or "water" in c.visual_description.lower() for c in candidates)
                 has_arches = any("arch" in c.visual_description.lower() for c in candidates)
                 has_fountain = any("fountain" in c.visual_description.lower() for c in candidates)
                 has_float = any("float" in c.visual_description.lower() for c in candidates)
@@ -267,7 +269,13 @@ class RefinementEngine:
                     facets.append(RefineFacet(
                         title="What did it look like?",
                         dimension="visual",
-                        options=["Blue wall", "Outdoor", "Beach nearby", "Not sure"],
+                        options=["Blue wall", "Small lake", "Outdoor", "Beach nearby", "Not sure"],
+                    ))
+                elif has_lake:
+                    facets.append(RefineFacet(
+                        title="What did it look like?",
+                        dimension="visual",
+                        options=["Small lake", "Outdoor", "Green trees", "Not sure"],
                     ))
                 elif has_arches or has_fountain:
                     opts = []

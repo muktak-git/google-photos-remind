@@ -13,8 +13,9 @@ class RankingService:
         candidates: List[CandidatePhoto],
         dimension: str,
         value: str,
+        original_query: Optional[str] = None,
     ) -> Tuple[List[CandidatePhoto], Optional[str]]:
-        """Apply user constraint to candidates and re-rank with graceful rollback protection."""
+        """Apply user constraint to candidates and re-rank with graceful rollback and semantic keyword retrieval."""
         val_lower = value.lower()
 
         # 1. "Not sure" / "Don't remember" does not filter photos
@@ -44,17 +45,28 @@ class RankingService:
                 c.score = max(0.05, round(c.score * 0.5, 3))
                 unmatched_candidates.append(c)
 
-        # 2. Over-constrained edge case (candidates drop to 0) -> Rollback per edge-case.md §4.1
+        # 2. If no matches in current candidate pool, attempt semantic retrieval with keyword
         if len(matched_candidates) == 0:
-            logger.warning(
-                f"Constraint '{dimension}={value}' resulted in 0 matches out of {len(candidates)} candidates. "
-                f"Rolling back to previous candidate set."
+            logger.info(
+                f"Constraint '{dimension}={value}' produced 0 local matches. Searching library with keyword."
             )
+            try:
+                from app.services.retrieval import retrieval_service
+                search_query = f"{original_query or ''} {value}".strip()
+                new_matches = retrieval_service.retrieve_candidates(search_query, limit=20)
+                if new_matches and len(new_matches) > 0:
+                    for nm in new_matches:
+                        nm.score = min(1.0, round(nm.score * 1.1 + 0.1, 3))
+                    banner = f"I found {len(new_matches)} photos matching '{value}'."
+                    return new_matches, banner
+            except Exception as e:
+                logger.warning(f"Keyword semantic fallback failed: {e}")
+
+            # If semantic search also finds no new photos, retain existing candidates (never drop to 0)
             banner = (
                 f"None of those photos matched '{value}'. "
                 f"Showing the closest photos from that memory so we can try another clue!"
             )
-            # Re-sort existing candidates without dropping
             return sorted(candidates, key=lambda x: x.score, reverse=True), banner
 
         # 3. Successful filtering: Return matched candidates sorted by boosted score
@@ -65,9 +77,17 @@ class RankingService:
     @staticmethod
     def _check_dimension_match(c: CandidatePhoto, dimension: str, val_lower: str) -> bool:
         """Evaluate if candidate photo matches the selected constraint value."""
-        # 1. Specific visual feature & object cues (e.g. "blue wall", "carved arches", "beach nearby")
-        if any(term in val_lower for term in ["blue wall", "blue"]):
-            return "blue wall" in c.visual_description.lower() or any("blue" in o.lower() for o in c.objects)
+        # 1. Specific visual feature & object cues (e.g. "small lake", "carved arches", "beach nearby")
+        if any(term in val_lower for term in ["small lake", "lake", "water body", "pond"]):
+            return (
+                "lake" in c.visual_description.lower()
+                or "water" in c.visual_description.lower()
+                or any("lake" in s.lower() or "water" in s.lower() for s in c.scene)
+                or any("lake" in o.lower() or "water" in o.lower() for o in c.objects)
+            )
+
+        if "blue" in val_lower:
+            return "blue" in c.visual_description.lower() or any("blue" in o.lower() for o in c.objects)
 
         if "christmas" in val_lower:
             return (c.date and ("12-24" in c.date or "12-25" in c.date)) or "christmas" in c.visual_description.lower()
