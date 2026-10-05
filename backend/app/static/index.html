@@ -115,6 +115,10 @@
           </div>
 
           <div class="flex items-center gap-2">
+            <button id="header-new-research-btn" onclick="startNewResearch()" title="Start New Research" class="hidden flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold active:scale-95 transition-all">
+              <span class="material-symbols-outlined text-[15px] text-primary">restart_alt</span>
+              <span>New research</span>
+            </button>
             <button onclick="switchMainTab('remind')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold shadow-sm active:scale-95 transition-all">
               <span class="material-symbols-outlined text-[16px]">auto_awesome</span>
               <span>ReMind</span>
@@ -418,27 +422,30 @@
         </section>
 
         <!-- =============================================================== -->
-        <!-- SCREEN 2: UNDERSTANDING                                         -->
+        <!-- SCREEN 2: DRAFT SEARCH PLAN (UNDERSTANDING)                     -->
         <!-- =============================================================== -->
-        <section id="screen-2" class="hidden flex-col px-4 pt-4 pb-8 gap-5 animate-fade-in">
+        <section id="screen-2" class="hidden flex-col px-4 pt-4 pb-8 gap-4 animate-fade-in">
           
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
-              <span class="material-symbols-outlined text-[18px] text-primary">psychology</span>
-              <span class="text-xs text-primary uppercase tracking-wider font-semibold">Step 2 of 5</span>
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary-container text-on-primary-container text-xs font-bold">2</span>
+              <span class="text-xs text-primary uppercase tracking-wider font-semibold">Step 2 of 5: Draft Search</span>
             </div>
-            <span class="text-xs text-on-surface-variant">Semantic Decomposition</span>
+            <button onclick="startNewResearch()" class="flex items-center gap-1 text-[11px] text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+              <span class="material-symbols-outlined text-[14px]">refresh</span>
+              <span>Start new research</span>
+            </button>
           </div>
 
           <!-- Query Recap Card -->
-          <div class="relative overflow-hidden rounded-xl bg-surface-container-high p-4 shadow-sm border border-surface-container-highest/60">
-            <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0 mt-0.5">
-                <span class="material-symbols-outlined text-[18px] text-primary">format_quote</span>
+          <div class="relative overflow-hidden rounded-xl bg-surface-container-high p-3.5 shadow-sm border border-surface-container-highest/60">
+            <div class="flex items-start gap-2.5">
+              <div class="w-7 h-7 rounded-full bg-primary-container/20 flex items-center justify-center shrink-0 mt-0.5 text-primary">
+                <span class="material-symbols-outlined text-[16px]">history_edu</span>
               </div>
               <div class="flex flex-col min-w-0">
-                <span class="text-[11px] text-on-surface-variant">Original Memory Prompt</span>
-                <p id="recap-query-text" class="text-sm text-on-surface italic font-medium leading-relaxed mt-0.5">
+                <span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-semibold">What you remembered</span>
+                <p id="recap-query-text" class="text-xs font-medium text-on-surface italic mt-0.5 leading-snug">
                   “That grand palace courtyard we visited during our Rajasthan trip...”
                 </p>
               </div>
@@ -446,41 +453,70 @@
           </div>
 
           <!-- Main Headline Block -->
-          <div class="flex flex-col gap-1">
-            <h1 class="text-2xl font-bold text-on-surface tracking-tight">Here's what I understood</h1>
-            <p class="text-sm text-on-surface-variant leading-relaxed">
-              Extracted memory cues and confidence breakdown from your Google Photos library.
+          <div class="flex flex-col gap-0.5">
+            <h1 class="text-xl font-bold text-on-surface tracking-tight">Draft Search Plan</h1>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              Here is how ReMind understands your memory. Check if this looks right before searching.
             </p>
           </div>
 
-          <!-- Signal Cards Container -->
-          <div class="flex flex-col gap-2.5">
-            <div class="flex items-center justify-between px-1">
-              <span class="text-xs font-semibold text-on-surface-variant">Extracted Clue Cues</span>
-              <span id="clue-signal-count" class="text-xs text-secondary font-medium">Calibrated Confidence</span>
+          <!-- Understood Search Plan Highlight Card -->
+          <div class="p-4 rounded-2xl bg-surface-container border border-primary/30 shadow-md flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5 text-primary">
+                <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+                <span class="text-xs font-bold uppercase tracking-wide">What I'll search for:</span>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-primary-container/30 text-primary font-bold">Ready</span>
             </div>
-            <div id="clue-cards-container" class="flex flex-col gap-2"></div>
+
+            <p id="draft-search-summary" class="text-sm font-medium text-on-surface leading-relaxed">
+              Searching for photos...
+            </p>
+
+            <!-- Detected Clue Badges (Friendly, No Jargons, No Percentages) -->
+            <div class="flex flex-col gap-1.5 pt-1 border-t border-surface-container-high/60">
+              <span class="text-[11px] font-semibold text-on-surface-variant">Detected clues:</span>
+              <div id="understood-badges-cloud" class="flex flex-wrap gap-1.5">
+                <!-- Badges dynamically rendered here -->
+              </div>
+            </div>
           </div>
 
-          <!-- Editable Chips Block -->
-          <div class="p-3.5 rounded-2xl bg-surface-container-low border border-surface-container-high/40 flex flex-col gap-2">
-            <span class="text-xs font-semibold text-on-surface">Active Memory Chips</span>
-            <div id="chips-cloud" class="flex flex-wrap gap-1.5"></div>
-            
-            <div class="flex items-center gap-2 pt-2 border-t border-surface-container-high/40">
-              <input id="add-clue-input" type="text" placeholder="Add missed detail (e.g. at sunset)..." class="flex-1 bg-surface-container px-3 py-1.5 rounded-xl text-xs text-on-surface placeholder-on-surface-variant/40 focus:outline-none border border-surface-container-high/60"/>
-              <button onclick="handleAddCustomClue()" class="px-3 py-1.5 rounded-xl bg-surface-container-highest text-primary text-xs font-semibold hover:bg-surface-bright active:scale-95 transition-all">
-                Add
-              </button>
-            </div>
-          </div>
+          <!-- Question / Choice Prompt -->
+          <div class="flex flex-col gap-2 pt-1">
+            <span class="text-xs font-semibold text-on-surface text-center">Does this match what you're looking for?</span>
 
-          <!-- Primary Submit Button -->
-          <div class="pt-2 flex flex-col gap-1.5">
-            <button id="btn-understand-submit" class="w-full h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all" onclick="submitFindPhotos()" type="button">
-              <span>Find photos</span>
+            <!-- Primary Action: Proceed to Search -->
+            <button id="btn-understand-submit" class="w-full h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all cursor-pointer" onclick="submitFindPhotos()" type="button">
+              <span>Looks good, find photos</span>
               <span class="material-symbols-outlined text-[18px]">photo_library</span>
             </button>
+
+            <!-- Secondary Action: Refine or Add Details -->
+            <button id="btn-toggle-refine" onclick="toggleScreen2RefineBox()" class="w-full py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold border border-surface-container-highest flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer" type="button">
+              <span class="material-symbols-outlined text-[16px] text-primary">tune</span>
+              <span>Refine or add details</span>
+            </button>
+
+            <!-- Collapsible Inline Refinement Box -->
+            <div id="screen2-refine-box" class="hidden flex-col gap-2.5 p-3.5 rounded-xl bg-surface-container border border-surface-container-highest/80 shadow-inner mt-1">
+              <span class="text-[11px] font-semibold text-primary">Add or adjust details:</span>
+              <div class="flex items-center gap-1.5">
+                <input id="screen2-refine-input" type="text" placeholder="e.g. at sunset, small lake, with friends..." class="flex-1 bg-surface-container-lowest px-3 py-2 rounded-xl text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none border border-surface-container-high focus:border-primary" onkeydown="if(event.key==='Enter')submitScreen2Refine()"/>
+                <button onclick="submitScreen2Refine()" class="px-3.5 py-2 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-bold text-xs flex items-center gap-1 active:scale-95 transition-all shadow-sm cursor-pointer">
+                  <span>Update</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Start New Research Secondary Link -->
+            <div class="flex items-center justify-center pt-2">
+              <button onclick="startNewResearch()" class="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-[14px]">refresh</span>
+                <span>Start new research</span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -621,14 +657,20 @@
 
           <!-- Final Confirmation Actions -->
           <div class="flex flex-col gap-2.5 pt-2">
-            <button onclick="confirmMatchedPhoto(true)" class="w-full h-12 rounded-full bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all">
+            <button onclick="confirmMatchedPhoto(true)" class="w-full h-12 rounded-full bg-secondary hover:bg-secondary-container text-[#003914] font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all cursor-pointer">
               <span class="material-symbols-outlined text-[20px]">check_circle</span>
               <span>Yes, that's it!</span>
             </button>
-            <button onclick="confirmMatchedPhoto(false)" class="w-full h-11 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.99] transition-all">
+            <button onclick="confirmMatchedPhoto(false)" class="w-full h-11 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-[0.99] transition-all cursor-pointer">
               <span class="material-symbols-outlined text-[18px]">replay</span>
               <span>No, keep looking</span>
             </button>
+            <div class="flex items-center justify-center pt-1">
+              <button onclick="startNewResearch()" class="text-xs text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
+                <span class="material-symbols-outlined text-[14px]">refresh</span>
+                <span>Start new research</span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -707,9 +749,14 @@
           </div>
         </div>
 
-        <button onclick="restartSearchFlow()" class="w-full py-3 rounded-full bg-primary-container hover:bg-primary text-on-primary-container text-xs font-bold shadow-md active:scale-95 transition-all">
-          Done & Return to Library
-        </button>
+        <div class="flex flex-col gap-2 w-full">
+          <button onclick="startNewResearch()" class="w-full py-3 rounded-full bg-primary-container hover:bg-primary text-on-primary-container text-xs font-bold shadow-md active:scale-95 transition-all cursor-pointer">
+            Start New Research
+          </button>
+          <button onclick="restartSearchFlow()" class="w-full py-2.5 rounded-full bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface text-xs font-semibold active:scale-95 transition-all cursor-pointer">
+            Done & Return to Library
+          </button>
+        </div>
       </div>
     </div>
 
@@ -740,6 +787,7 @@
       const headerSubtitle = document.getElementById('header-subtitle');
       const backBtn = document.getElementById('header-back-btn');
       const progressBar = document.getElementById('remind-progress-bar');
+      const newResearchBtn = document.getElementById('header-new-research-btn');
 
       if (tab === 'library') {
         viewLibrary.classList.remove('hidden');
@@ -749,6 +797,7 @@
         headerSubtitle.textContent = "Photos Library";
         backBtn.classList.add('hidden');
         progressBar.classList.add('hidden');
+        if (newResearchBtn) newResearchBtn.classList.add('hidden');
         const appMain = document.getElementById('app-main');
         if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -759,6 +808,7 @@
         headerSubtitle.textContent = `Memory Search • Step ${currentStep} of 5`;
         backBtn.classList.remove('hidden');
         progressBar.classList.remove('hidden');
+        if (newResearchBtn) newResearchBtn.classList.remove('hidden');
         navigateToStep(currentStep);
       }
     }
@@ -888,6 +938,8 @@
     function handleNavigationBack() {
       if (currentStep === 1) {
         switchMainTab('library');
+      } else if (currentStep === 2) {
+        startNewResearch();
       } else {
         navigateToStep(currentStep - 1);
       }
@@ -910,6 +962,17 @@
         input.focus();
         return;
       }
+
+      // Reset previous state so new research starts completely clean
+      candidatePhotos = [];
+      selectedHeroPhoto = null;
+      extractedClues = null;
+      const candGrid = document.getElementById('candidates-grid');
+      if (candGrid) candGrid.innerHTML = "";
+      const convGrid = document.getElementById('conv-candidates-grid');
+      if (convGrid) convGrid.innerHTML = "";
+      const stream = document.getElementById('chat-stream');
+      if (stream) stream.innerHTML = "";
 
       const btn = document.getElementById('btn-search-submit');
       const label = document.getElementById('btn-search-label');
@@ -1314,95 +1377,79 @@
     }
 
     // -------------------------------------------------------------
-    // Step 2: Render Understanding
+    // Step 2: Render Draft Search Plan (Understanding)
     // -------------------------------------------------------------
     function renderUnderstandingScreen(rawQuery, data) {
-      document.getElementById('recap-query-text').textContent = `“${rawQuery}”`;
-      renderChipsCloud(data.chips);
-      renderClueCards(data.clues);
+      const recap = document.getElementById('recap-query-text');
+      if (recap) recap.textContent = `“${rawQuery}”`;
+
+      const summary = document.getElementById('draft-search-summary');
+      if (summary) {
+        summary.textContent = data.draft_summary || `Searching for photos matching “${rawQuery}” in your library.`;
+      }
+
+      renderUnderstoodBadges(data.chips);
     }
 
-    function renderChipsCloud(chips) {
-      const cloud = document.getElementById('chips-cloud');
+    function renderUnderstoodBadges(chips) {
+      const cloud = document.getElementById('understood-badges-cloud');
+      if (!cloud) return;
       cloud.innerHTML = "";
       (chips || []).forEach((chip, index) => {
         const text = typeof chip === 'string' ? chip : (chip.display_text || chip.value || JSON.stringify(chip));
         const badge = document.createElement('div');
-        badge.className = "flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium border border-surface-container-highest shadow-sm";
+        badge.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-xs font-medium border border-surface-container-highest shadow-sm";
         badge.innerHTML = `
           <span>${escapeHtml(text)}</span>
-          <button onclick="removeChip(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center">
-            <span class="material-symbols-outlined text-[14px]">close</span>
+          <button onclick="removeUnderstoodBadge(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center ml-1" title="Remove">
+            <span class="material-symbols-outlined text-[13px]">close</span>
           </button>
         `;
         cloud.appendChild(badge);
       });
     }
 
-    function removeChip(index) {
-      const cloud = document.getElementById('chips-cloud');
-      if (cloud.children[index]) {
+    function removeUnderstoodBadge(index) {
+      const cloud = document.getElementById('understood-badges-cloud');
+      if (cloud && cloud.children[index]) {
         cloud.children[index].remove();
       }
     }
 
-    function handleAddCustomClue() {
-      const input = document.getElementById('add-clue-input');
-      const val = input.value.trim();
-      if (!val) return;
-      const cloud = document.getElementById('chips-cloud');
-      const idx = cloud.children.length;
-      const badge = document.createElement('div');
-      badge.className = "flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/20 text-primary text-xs font-semibold border border-primary-container/40 shadow-sm";
-      badge.innerHTML = `
-        <span>${val}</span>
-        <button onclick="removeChip(${idx})" class="text-primary hover:text-error transition-colors flex items-center">
-          <span class="material-symbols-outlined text-[14px]">close</span>
-        </button>
-      `;
-      cloud.appendChild(badge);
-      input.value = "";
+    function toggleScreen2RefineBox() {
+      const box = document.getElementById('screen2-refine-box');
+      if (!box) return;
+      box.classList.toggle('hidden');
+      if (!box.classList.contains('hidden')) {
+        const input = document.getElementById('screen2-refine-input');
+        if (input) { input.focus(); }
+      }
     }
 
-    function renderClueCards(clues) {
-      const container = document.getElementById('clue-cards-container');
-      container.innerHTML = "";
+    async function submitScreen2Refine() {
+      const input = document.getElementById('screen2-refine-input');
+      const val = input ? input.value.trim() : "";
+      if (!val) return;
 
-      const items = [
-        { label: "Location Context", val: clues.location, icon: "location_on", conf: clues.confidence.location },
-        { label: "Place / Scene Type", val: clues.scene, icon: "museum", conf: clues.confidence.scene },
-        { label: "Social Context", val: clues.people ? clues.people.join(", ") : null, icon: "group", conf: clues.confidence.people },
-        { label: "Time & Ambiance", val: clues.time, icon: "wb_twilight", conf: clues.confidence.time }
-      ].filter(i => i.val);
+      currentMemoryQuery = `${currentMemoryQuery} ${val}`.trim();
+      input.value = "";
+      toggleScreen2RefineBox();
 
-      if (items.length === 0) {
-        items.push({ label: "Visual Semantics", val: clues.visual_details || "Ambient recollection", icon: "auto_awesome", conf: 0.85 });
+      // Re-parse with updated query and refresh Draft Search Plan
+      try {
+        const underRes = await fetch('/api/understand', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: sessionId, query: currentMemoryQuery })
+        });
+        if (underRes.ok) {
+          const underData = await underRes.json();
+          extractedClues = underData.clues;
+          renderUnderstandingScreen(currentMemoryQuery, underData);
+        }
+      } catch (e) {
+        console.error("Refine plan error:", e);
       }
-
-      items.forEach(item => {
-        const isHigh = item.conf >= 0.7;
-        const confBadge = isHigh
-          ? `<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>High confidence</div>`
-          : `<div class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary text-[11px] font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Inferred</div>`;
-
-        const card = document.createElement('div');
-        card.className = "flex flex-col bg-surface-container rounded-xl p-3.5 shadow-sm border border-surface-container-high/60";
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-[18px] text-primary">${item.icon}</span>
-              </div>
-              <div class="flex flex-col min-w-0">
-                <span class="text-[11px] text-on-surface-variant font-medium">${item.label}</span>
-                <span class="text-sm font-semibold text-on-surface truncate capitalize">${item.val}</span>
-              </div>
-            </div>
-            ${confBadge}
-          </div>
-        `;
-        container.appendChild(card);
-      });
     }
 
     async function submitFindPhotos() {
@@ -1743,12 +1790,59 @@
       }
     }
 
-    function restartSearchFlow() {
-      document.getElementById('celebration-modal').classList.add('hidden');
-      document.getElementById('memory-input').value = "";
+    function startNewResearch() {
       sessionId = null;
+      currentMemoryQuery = "";
+      extractedClues = null;
       candidatePhotos = [];
       selectedHeroPhoto = null;
+      currentRefinement = null;
+
+      // Clear all text inputs
+      const memInput = document.getElementById('memory-input');
+      if (memInput) memInput.value = "";
+      const convInput = document.getElementById('conv-chat-input');
+      if (convInput) convInput.value = "";
+      const inlineInput = document.getElementById('inline-more-clue-input');
+      if (inlineInput) inlineInput.value = "";
+      const s2RefineInput = document.getElementById('screen2-refine-input');
+      if (s2RefineInput) s2RefineInput.value = "";
+      const s4ClueInput = document.getElementById('screen4-clue-input');
+      if (s4ClueInput) s4ClueInput.value = "";
+
+      // Clear dynamic DOM containers
+      const stream = document.getElementById('chat-stream');
+      if (stream) stream.innerHTML = "";
+      const candGrid = document.getElementById('candidates-grid');
+      if (candGrid) candGrid.innerHTML = "";
+      const ribbon = document.getElementById('candidates-ribbon');
+      if (ribbon) ribbon.innerHTML = "";
+      const convGrid = document.getElementById('conv-candidates-grid');
+      if (convGrid) convGrid.innerHTML = "";
+      const badgesCloud = document.getElementById('understood-badges-cloud');
+      if (badgesCloud) badgesCloud.innerHTML = "";
+      const draftSummary = document.getElementById('draft-search-summary');
+      if (draftSummary) draftSummary.textContent = "";
+      const s4Strip = document.getElementById('refine-horizontal-strip');
+      if (s4Strip) s4Strip.innerHTML = "";
+
+      // Hide modals and hero cards
+      const heroCard = document.getElementById('conv-hero-card');
+      if (heroCard) heroCard.classList.add('hidden');
+      const inspectModal = document.getElementById('photo-inspect-modal');
+      if (inspectModal) inspectModal.classList.add('hidden');
+      const celebModal = document.getElementById('celebration-modal');
+      if (celebModal) celebModal.classList.add('hidden');
+      const s2Box = document.getElementById('screen2-refine-box');
+      if (s2Box) s2Box.classList.add('hidden');
+
+      // Navigate back to Step 1 cleanly
+      navigateToStep(1);
+      if (memInput) memInput.focus();
+    }
+
+    function restartSearchFlow() {
+      startNewResearch();
       switchMainTab('library');
     }
 

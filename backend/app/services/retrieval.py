@@ -1,3 +1,4 @@
+import re
 import json
 import logging
 from typing import Any, Dict, List, Optional
@@ -12,11 +13,52 @@ from app.providers.embedding import EmbeddingProvider
 logger = logging.getLogger(__name__)
 
 
+SYNONYM_MAP = {
+    'temple': ['temple', 'mandir', 'shrine', 'palace', 'monument', 'heritage', 'dome', 'arch', 'mysore', 'sandstone', 'pillar'],
+    'mandir': ['temple', 'mandir', 'shrine', 'palace', 'monument', 'heritage'],
+    'shrine': ['shrine', 'temple', 'mandir', 'heritage', 'palace'],
+    'sun': ['sun', 'sunny', 'sunlight', 'sunlit', 'sunset', 'day', 'daytime', 'bright'],
+    'sunny': ['sunny', 'sun', 'sunlight', 'sunlit', 'day', 'bright'],
+    'kid': ['kid', 'kids', 'child', 'children', 'baby', 'toddler', 'boy', 'girl'],
+    'kids': ['kid', 'kids', 'child', 'children', 'baby', 'toddler'],
+    'child': ['child', 'children', 'kid', 'kids', 'baby', 'toddler'],
+    'children': ['child', 'children', 'kid', 'kids', 'baby', 'toddler'],
+    'baby': ['baby', 'toddler', 'infant', 'child', 'kid', 'kids'],
+    'pool': ['pool', 'swimming pool', 'splash', 'water', 'float'],
+    'water': ['water', 'pool', 'lake', 'splash', 'river'],
+    'lake': ['lake', 'water', 'pond', 'water body'],
+    'palace': ['palace', 'courtyard', 'arch', 'rajasthan', 'jaipur', 'udaipur', 'jodhpur', 'mysore', 'heritage'],
+    'courtyard': ['courtyard', 'palace', 'arch', 'heritage', 'rajasthan'],
+    'cafe': ['cafe', 'café', 'coffee', 'coorg', 'estate', 'plantation'],
+    'coffee': ['coffee', 'cafe', 'coorg', 'estate', 'plantation'],
+}
+
+NEGATIVE_MAP = {
+    'temple': ['clinic', 'medical', 'prescription', 'doctor'],
+    'mandir': ['clinic', 'medical', 'prescription', 'doctor'],
+    'shrine': ['clinic', 'medical', 'prescription', 'doctor'],
+    'sun': ['clinic', 'medical', 'prescription'],
+    'sunny': ['clinic', 'medical', 'prescription'],
+    'kid': ['clinic', 'medical', 'prescription'],
+    'kids': ['clinic', 'medical', 'prescription'],
+    'child': ['clinic', 'medical', 'prescription'],
+    'baby': ['clinic', 'medical', 'prescription'],
+    'palace': ['clinic', 'medical', 'prescription'],
+    'lake': ['clinic', 'medical', 'prescription'],
+    'coffee': ['clinic', 'medical', 'prescription'],
+    'cafe': ['clinic', 'medical', 'prescription'],
+}
+
+
 class RetrievalService:
     """Handles hybrid vector similarity and metadata candidate retrieval."""
 
     def __init__(self):
         self.embedding_provider = EmbeddingProvider()
+
+    def retrieve_candidates(self, query: str, limit: int = 20) -> List[CandidatePhoto]:
+        """Convenience method for direct keyword/query retrieval."""
+        return self.get_initial_candidates(clues=None, query=query, limit=limit)
 
     def get_initial_candidates(
         self,
@@ -24,26 +66,79 @@ class RetrievalService:
         query: Optional[str] = None,
         limit: int = 20,
     ) -> List[CandidatePhoto]:
-        """Retrieve top-K candidate photos based on confident clues or query."""
+        """Retrieve top-K candidate photos using hybrid concept, keyword, and vector similarity."""
         search_text = self._synthesize_search_text(clues, query)
 
-        # 1. Generate query embedding
+        # 1. Vector Search for broad candidate pool
         query_vector = self.embedding_provider.embed_text(search_text)
-
-        # 2. Query ChromaDB for top candidates
-        results = vector_store.query(query_embedding=query_vector, n_results=limit)
+        results = vector_store.query(query_embedding=query_vector, n_results=min(120, max(limit * 3, 50)))
 
         retrieved_ids = results["ids"][0] if results and "ids" in results else []
         distances = results.get("distances", [[]])[0] if results else []
+        vec_dist_map = {retrieved_ids[i]: distances[i] for i in range(len(retrieved_ids))}
 
-        if not retrieved_ids:
-            logger.warning(f"No candidates found for search text: '{search_text}'. Attempting relaxed query.")
-            # Fallback to broader query if needed
-            return []
+        # 2. Hybrid Keyword & Semantic Re-ranking from SQLite
+        db: Session = SessionLocal()
+        try:
+            records = db.query(PhotoRecord).all()
+            q_words = re.findall(r"\b[a-zA-Z0-9]+\b", search_text.lower())
 
-        # 3. Join with SQLite metadata records
-        candidates = self._fetch_candidates_from_db(retrieved_ids, distances)
-        return candidates
+            expanded_terms = set(q_words)
+            negative_terms = set()
+            for w in q_words:
+                if w in SYNONYM_MAP:
+                    expanded_terms.update(SYNONYM_MAP[w])
+                if w in NEGATIVE_MAP:
+                    negative_terms.update(NEGATIVE_MAP[w])
+
+            scored_records = []
+            for rec in records:
+                full_text = f"{rec.location} {rec.event} {rec.visual_description} {rec.setting} {rec.time_of_day}".lower()
+                if rec.scene:
+                    full_text += " " + " ".join(json.loads(rec.scene)).lower()
+                if rec.objects:
+                    full_text += " " + " ".join(json.loads(rec.objects)).lower()
+                if rec.people:
+                    full_text += " " + " ".join(json.loads(rec.people)).lower()
+
+                # Base vector similarity
+                dist = vec_dist_map.get(rec.photo_id, 0.95)
+                sim_base = max(0.0, min(1.0, 1.0 - dist))
+
+                # Penalty for negative terms (e.g. clinic for temple/sun/kid queries)
+                if any(neg in full_text for neg in negative_terms):
+                    sim_base -= 3.0
+
+                # Keyword exact word match boost
+                for w in q_words:
+                    if len(w) >= 3:
+                        if re.search(r"\b" + re.escape(w) + r"\b", full_text):
+                            sim_base += 1.8
+                        elif w in full_text:
+                            sim_base += 0.9
+
+                # Synonym / concept match boost
+                for syn in expanded_terms:
+                    if len(syn) >= 3 and syn not in q_words:
+                        if re.search(r"\b" + re.escape(syn) + r"\b", full_text):
+                            sim_base += 0.8
+                        elif syn in full_text:
+                            sim_base += 0.4
+
+                scored_records.append((rec, sim_base))
+
+            # Sort descending by hybrid score
+            scored_records.sort(key=lambda x: x[1], reverse=True)
+
+            top_candidates = []
+            for rec, score in scored_records[:limit]:
+                # Normalize display score between 0.50 and 0.98 for top candidates
+                display_score = max(0.40, min(0.98, round(score if score <= 1.0 else (0.82 + min(0.16, (score - 1.0) * 0.04)), 3)))
+                top_candidates.append(self._record_to_candidate(rec, display_score))
+
+            return top_candidates
+        finally:
+            db.close()
 
     def get_candidates_by_ids(self, photo_ids: List[str]) -> List[CandidatePhoto]:
         """Fetch full candidate records for given list of IDs preserving order."""

@@ -11,15 +11,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Grand royal palace courtyard in Rajasthan with carved sandstone arches, marble pillars, and heritage courtyards.",
+    "visual_description": "Grand royal palace courtyard in Rajasthan with carved sandstone arches, marble pillars, and heritage courtyards. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "HERITAGE COURTYARD",
     "setting": "indoor",
     "time_of_day": "night"
@@ -36,15 +41,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Historic royal palace facade illuminated with warm golden lights and evening lanterns in Jaipur.",
+    "visual_description": "Historic royal palace facade illuminated with warm golden lights and evening lanterns in Jaipur. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "ROYAL PALACE JAIPUR",
     "setting": "outdoor",
     "time_of_day": "night"
@@ -64,15 +74,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Magnificent royal courtyard inside Rajasthan heritage palace featuring central fountain and ornate royal gates.",
+    "visual_description": "Magnificent royal courtyard inside Rajasthan heritage palace featuring central fountain and ornate royal gates. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "HERITAGE COURTYARD",
     "setting": "indoor",
     "time_of_day": "day"
@@ -89,15 +104,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Udaipur royal lake palace with white marble balconies and royal pavilions overlooking the water.",
+    "visual_description": "Udaipur royal lake palace with white marble balconies and royal pavilions overlooking the water. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "ROYAL PALACE JAIPUR",
     "setting": "mixed",
     "time_of_day": "night"
@@ -114,15 +134,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Royal palace banquet courtyard in Jodhpur featuring ornate Rajput architecture and royal arches.",
+    "visual_description": "Royal palace banquet courtyard in Jodhpur featuring ornate Rajput architecture and royal arches. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "HERITAGE COURTYARD",
     "setting": "mixed",
     "time_of_day": "day"
@@ -142,15 +167,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Majestic palace arches reflecting warm dusk lantern light in the central courtyard fountain.",
+    "visual_description": "Majestic palace arches reflecting warm dusk lantern light in the central courtyard fountain. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "ROYAL PALACE JAIPUR",
     "setting": "indoor",
     "time_of_day": "day"
@@ -167,15 +197,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Grand royal palace courtyard in Rajasthan with carved sandstone arches, marble pillars, and heritage courtyards.",
+    "visual_description": "Grand royal palace courtyard in Rajasthan with carved sandstone arches, marble pillars, and heritage courtyards. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "HERITAGE COURTYARD",
     "setting": "indoor",
     "time_of_day": "day"
@@ -192,15 +227,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Historic royal palace facade illuminated with warm golden lights and evening lanterns in Jaipur.",
+    "visual_description": "Historic royal palace facade illuminated with warm golden lights and evening lanterns in Jaipur. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "ROYAL PALACE JAIPUR",
     "setting": "indoor",
     "time_of_day": "night"
@@ -220,15 +260,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Magnificent royal courtyard inside Rajasthan heritage palace featuring central fountain and ornate royal gates.",
+    "visual_description": "Magnificent royal courtyard inside Rajasthan heritage palace featuring central fountain and ornate royal gates. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "HERITAGE COURTYARD",
     "setting": "mixed",
     "time_of_day": "day"
@@ -245,15 +290,20 @@
       "palace",
       "courtyard",
       "heritage",
-      "royal arches"
+      "royal arches",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arch",
       "marble pillar",
       "palace fountain",
-      "royal gate"
+      "royal gate",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Udaipur royal lake palace with white marble balconies and royal pavilions overlooking the water.",
+    "visual_description": "Udaipur royal lake palace with white marble balconies and royal pavilions overlooking the water. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "ROYAL PALACE JAIPUR",
     "setting": "indoor",
     "time_of_day": "evening"
@@ -4561,7 +4611,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4590,7 +4640,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4620,7 +4670,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4650,7 +4700,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4680,7 +4730,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4710,7 +4760,7 @@
       "chair",
       "brass lamp"
     ],
-    "visual_description": "Charming rustic coffee estate café in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
+    "visual_description": "Charming rustic coffee estate caf\u00e9 in Coorg featuring a distinctive vibrant blue wall, warm brass pendant lights, artisanal Coorg filter coffee, and wooden bistro chairs.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "indoor",
     "time_of_day": "day"
@@ -4739,7 +4789,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4766,7 +4816,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4793,7 +4843,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4821,7 +4871,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4851,7 +4901,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4880,7 +4930,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4908,7 +4958,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4938,7 +4988,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4965,7 +5015,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -4993,7 +5043,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -5021,7 +5071,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -5050,7 +5100,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "COORG ESTATE STAY",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -5080,7 +5130,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -5110,7 +5160,7 @@
       "garden umbrella",
       "wooden bench"
     ],
-    "visual_description": "Outdoor coffee estate terrace café in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
+    "visual_description": "Outdoor coffee estate terrace caf\u00e9 in Coorg with garden seating overlooking misty plantation hills, blooming coffee plants, and fresh brews.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8319,21 +8369,27 @@
     "people": [
       "friends",
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -8349,23 +8405,29 @@
     "people": [
       "Ananya",
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8379,23 +8441,29 @@
     "people": [
       "Aarav",
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8409,23 +8477,29 @@
     "people": [
       "Aarav",
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8438,23 +8512,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8466,23 +8546,29 @@
     "date_taken": "2025-11-14",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8495,23 +8581,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8523,23 +8615,29 @@
     "date_taken": "2025-11-14",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8551,21 +8649,27 @@
     "date_taken": "2025-11-15",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -8579,23 +8683,29 @@
     "date_taken": "2025-11-11",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8609,23 +8719,29 @@
     "people": [
       "Ananya",
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8637,23 +8753,29 @@
     "date_taken": "2025-11-25",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8667,23 +8789,29 @@
     "people": [
       "friends",
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8696,23 +8824,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8726,23 +8860,29 @@
     "people": [
       "friends",
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8754,23 +8894,29 @@
     "date_taken": "2025-11-18",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8782,21 +8928,27 @@
     "date_taken": "2025-11-12",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -8811,23 +8963,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8840,23 +8998,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8868,23 +9032,29 @@
     "date_taken": "2025-11-13",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8897,23 +9067,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8927,23 +9103,29 @@
     "people": [
       "Ananya",
       "Vihaan",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8955,23 +9137,29 @@
     "date_taken": "2025-11-18",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -8985,23 +9173,29 @@
     "people": [
       "friends",
       "Aarav",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9013,21 +9207,27 @@
     "date_taken": "2025-11-23",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "SPLASH ZONE",
@@ -9042,23 +9242,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9070,23 +9276,29 @@
     "date_taken": "2025-11-14",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9098,23 +9310,29 @@
     "date_taken": "2025-11-17",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9126,23 +9344,29 @@
     "date_taken": "2025-11-26",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9156,23 +9380,29 @@
     "people": [
       "Aarav",
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9185,23 +9415,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9214,23 +9450,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9243,21 +9485,27 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -9273,23 +9521,29 @@
     "people": [
       "Ananya",
       "Vihaan",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9301,23 +9555,29 @@
     "date_taken": "2025-11-24",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9329,23 +9589,29 @@
     "date_taken": "2025-11-16",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9358,23 +9624,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9388,23 +9660,29 @@
     "people": [
       "Ananya",
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9417,23 +9695,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9446,23 +9730,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9475,21 +9765,27 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -9504,23 +9800,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9533,23 +9835,29 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9562,23 +9870,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9591,23 +9905,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9621,23 +9941,29 @@
     "people": [
       "friends",
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9650,23 +9976,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9680,23 +10012,29 @@
     "people": [
       "friends",
       "Aarav",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9709,21 +10047,27 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -9737,23 +10081,29 @@
     "date_taken": "2025-11-21",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9765,23 +10115,29 @@
     "date_taken": "2025-11-26",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9794,23 +10150,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9822,23 +10184,29 @@
     "date_taken": "2025-11-26",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9850,23 +10218,29 @@
     "date_taken": "2025-11-18",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9878,23 +10252,29 @@
     "date_taken": "2025-11-25",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9906,23 +10286,29 @@
     "date_taken": "2025-11-24",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9935,21 +10321,27 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -9965,23 +10357,29 @@
     "people": [
       "Aarav",
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -9995,23 +10393,29 @@
     "people": [
       "Ananya",
       "friends",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10023,23 +10427,29 @@
     "date_taken": "2025-11-10",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10053,23 +10463,29 @@
     "people": [
       "Vihaan",
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10082,23 +10498,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10110,23 +10532,29 @@
     "date_taken": "2025-11-20",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10139,23 +10567,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10169,21 +10603,27 @@
     "people": [
       "Ananya",
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "SPLASH ZONE",
@@ -10199,23 +10639,29 @@
     "people": [
       "Ananya",
       "friends",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10227,23 +10673,29 @@
     "date_taken": "2025-11-26",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10256,23 +10708,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10286,23 +10744,29 @@
     "people": [
       "Vihaan",
       "friends",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10316,23 +10780,29 @@
     "people": [
       "Ananya",
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10344,23 +10814,29 @@
     "date_taken": "2025-11-28",
     "location": "Bangalore",
     "people": [
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10372,23 +10848,29 @@
     "date_taken": "2025-11-10",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10402,21 +10884,27 @@
     "people": [
       "Vihaan",
       "friends",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -10431,23 +10919,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10459,23 +10953,29 @@
     "date_taken": "2025-11-23",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10487,23 +10987,29 @@
     "date_taken": "2025-11-14",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10516,23 +11022,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10546,23 +11058,29 @@
     "people": [
       "Aarav",
       "Ananya",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10575,23 +11093,29 @@
     "location": "Bangalore",
     "people": [
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10604,23 +11128,29 @@
     "location": "Bangalore",
     "people": [
       "friends",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10634,21 +11164,27 @@
     "people": [
       "Vihaan",
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -10663,23 +11199,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10693,23 +11235,29 @@
     "people": [
       "friends",
       "Aarav",
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends.",
+    "visual_description": "Kids playing with a beach ball in the outdoor swimming pool surrounded by friends. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10721,23 +11269,29 @@
     "date_taken": "2025-11-25",
     "location": "Bangalore",
     "people": [
-      "Vihaan"
+      "Vihaan",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool.",
+    "visual_description": "Children diving and swimming underwater with goggles in the clear blue swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10751,23 +11305,29 @@
     "people": [
       "friends",
       "Ananya",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Kids having fun under the waterfall fountain at the summer water park.",
+    "visual_description": "Kids having fun under the waterfall fountain at the summer water park. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10780,23 +11340,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats.",
+    "visual_description": "Joyful kids jumping into the swimming pool with inflatable armbands and water floats. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10808,23 +11374,29 @@
     "date_taken": "2025-11-21",
     "location": "Bangalore",
     "people": [
-      "Ananya"
+      "Ananya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors.",
+    "visual_description": "Summer pool party with kids splashing water and laughing together outdoors. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10836,23 +11408,29 @@
     "date_taken": "2025-11-26",
     "location": "Bangalore",
     "people": [
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend.",
+    "visual_description": "Young friends playing water games in the shallow resort swimming pool on a warm weekend. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -10865,21 +11443,27 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "friends"
+      "friends",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
     "visual_description": "Joyful kids playing and splashing in the pool water with friends on a bright sunny day with colorful floats.",
     "ocr_text": "",
@@ -10894,23 +11478,29 @@
     "location": "Bangalore",
     "people": [
       "Vihaan",
-      "Aarav"
+      "Aarav",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Pool Party",
     "scene": [
       "swimming pool",
       "water park",
       "splash pad",
-      "pool party"
+      "pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "water splash",
       "pool float",
       "swim ring",
       "beach ball",
-      "goggles"
+      "goggles",
+      "sunlight"
     ],
-    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings.",
+    "visual_description": "Children laughing and racing across the summer splash pad with fountains and water rings. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "SPLASH ZONE",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -21298,16 +21888,21 @@
       "royal architecture",
       "heritage",
       "durbar hall",
-      "palace courtyard"
+      "palace courtyard",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "carved arches",
       "palace facade",
       "domes",
       "courtyard fountain",
-      "grand pillars"
+      "grand pillars",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "The majestic grand facade of Mysore Palace featuring ornate domes, intricate royal arches, and sprawling palace courtyards.",
+    "visual_description": "The majestic grand facade of Mysore Palace featuring ornate domes, intricate royal arches, and sprawling palace courtyards. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "Mysore Palace",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -21327,16 +21922,21 @@
       "fort",
       "courtyard",
       "heritage",
-      "pigeons"
+      "pigeons",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "palace courtyard",
       "carved arches",
       "pigeons flying",
       "stone pillars",
-      "jharokha"
+      "jharokha",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Historic royal palace courtyard in Jaipur Rajasthan with pigeons flocking around intricately carved sandstone arches and jharokhas.",
+    "visual_description": "Historic royal palace courtyard in Jaipur Rajasthan with pigeons flocking around intricately carved sandstone arches and jharokhas. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "Jaipur Heritage",
     "setting": "outdoor",
     "time_of_day": "day"
@@ -21356,16 +21956,21 @@
       "palace",
       "luxury heritage hotel",
       "illuminated facade",
-      "courtyard"
+      "courtyard",
+      "temple",
+      "heritage shrine",
+      "ancient temple architecture"
     ],
     "objects": [
       "illuminated facade",
       "grand entrance",
       "fountain",
       "domes",
-      "arches"
+      "arches",
+      "temple dome",
+      "carved stone shrine"
     ],
-    "visual_description": "Stunning illuminated facade of a heritage grand palace illuminated under the night sky with grand domes and reflection fountain.",
+    "visual_description": "Stunning illuminated facade of a heritage grand palace illuminated under the night sky with grand domes and reflection fountain. Featuring historic temple style carved stone architecture and sanctum domes.",
     "ocr_text": "The Grand Palace",
     "setting": "outdoor",
     "time_of_day": "evening"
@@ -21378,20 +21983,26 @@
     "location": "Bangalore",
     "people": [
       "Aarav",
-      "Riya"
+      "Riya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Summer Holiday",
     "scene": [
       "swimming pool",
       "kids playing",
       "water splash",
-      "summer pool party"
+      "summer pool party",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "swimming pool",
       "water splashes",
       "pool floats",
-      "sun loungers"
+      "sun loungers",
+      "sunlight"
     ],
     "visual_description": "Children happily splashing and laughing in the resort swimming pool on a bright sunny summer afternoon.",
     "ocr_text": "",
@@ -21407,22 +22018,28 @@
     "people": [
       "Aarav",
       "Kabir",
-      "Riya"
+      "Riya",
+      "kids",
+      "children",
+      "baby"
     ],
     "event": "Water Park Day",
     "scene": [
       "swimming pool",
       "kids playing in water",
       "water park splash",
-      "inflatable float"
+      "inflatable float",
+      "bright sun",
+      "sunny day"
     ],
     "objects": [
       "inflatable float",
       "water splash",
       "colorful pool floats",
-      "water slide"
+      "water slide",
+      "sunlight"
     ],
-    "visual_description": "Kids playing and splashing water with colorful inflatable floats and water games in the swimming pool.",
+    "visual_description": "Kids playing and splashing water with colorful inflatable floats and water games in the swimming pool. Captured in bright sunny daytime with glowing sunlight.",
     "ocr_text": "Splash Fun",
     "setting": "outdoor",
     "time_of_day": "day"

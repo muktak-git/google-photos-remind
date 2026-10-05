@@ -14,7 +14,7 @@ async def understand_memory(req: UnderstandRequest):
         raise HTTPException(status_code=404, detail="Session not found")
 
     query_to_parse = req.query or session.original_query
-    clues, chips = await MemoryParserService.parse_memory(query_to_parse)
+    clues, chips, draft_summary = await MemoryParserService.parse_memory(query_to_parse)
 
     # Persist clues into session
     SessionService.update_clues(session_id=session.session_id, clues_data=clues.model_dump())
@@ -23,4 +23,5 @@ async def understand_memory(req: UnderstandRequest):
         session_id=session.session_id,
         clues=clues,
         chips=chips,
+        draft_summary=draft_summary,
     )

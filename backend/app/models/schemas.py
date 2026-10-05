@@ -53,6 +53,7 @@ class UnderstandResponse(BaseModel):
     session_id: str
     clues: ClueData
     chips: List[ClueChip]
+    draft_summary: Optional[str] = None
 
 
 # -------------------------------------------------------------

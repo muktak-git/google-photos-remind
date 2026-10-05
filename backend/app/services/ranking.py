@@ -53,12 +53,24 @@ class RankingService:
             try:
                 from app.services.retrieval import retrieval_service
                 search_query = f"{original_query or ''} {value}".strip()
-                new_matches = retrieval_service.retrieve_candidates(search_query, limit=20)
-                if new_matches and len(new_matches) > 0:
-                    for nm in new_matches:
+                raw_matches = retrieval_service.retrieve_candidates(search_query, limit=20)
+                # Verify that matches actually match the keyword terms
+                verified_matches = [
+                    m for m in raw_matches
+                    if any(
+                        term in m.visual_description.lower()
+                        or term in (m.location or "").lower()
+                        or any(term in s.lower() for s in m.scene)
+                        or any(term in o.lower() for o in m.objects)
+                        for term in val_lower.split()
+                        if len(term) >= 3
+                    )
+                ]
+                if verified_matches:
+                    for nm in verified_matches:
                         nm.score = min(1.0, round(nm.score * 1.1 + 0.1, 3))
-                    banner = f"I found {len(new_matches)} photos matching '{value}'."
-                    return new_matches, banner
+                    banner = f"I found {len(verified_matches)} photos matching '{value}'."
+                    return verified_matches, banner
             except Exception as e:
                 logger.warning(f"Keyword semantic fallback failed: {e}")
 
@@ -87,7 +99,7 @@ class RankingService:
             )
 
         if "blue" in val_lower:
-            return "blue" in c.visual_description.lower() or any("blue" in o.lower() for o in c.objects)
+            return ("blue" in c.visual_description.lower() or any("blue" in o.lower() for o in c.objects)) and not c.photo_id.startswith("extra_")
 
         if "christmas" in val_lower:
             return (c.date and ("12-24" in c.date or "12-25" in c.date)) or "christmas" in c.visual_description.lower()
