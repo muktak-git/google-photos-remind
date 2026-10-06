@@ -16,6 +16,7 @@ async def confirm_recognition(req: ConfirmRequest):
         session_id=session.session_id,
         photo_id=req.photo_id,
         confirmed=req.confirmed,
+        photos_viewed_override=req.photos_viewed,
     )
 
     metrics = SessionMetrics(**metrics_dict)

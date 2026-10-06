@@ -128,6 +128,7 @@ class ConfirmRequest(BaseModel):
     session_id: str
     photo_id: Optional[str] = None
     confirmed: bool = True
+    photos_viewed: Optional[int] = None
 
 
 class SessionMetrics(BaseModel):

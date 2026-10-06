@@ -169,7 +169,12 @@ class SessionService:
                 db.close()
 
     @staticmethod
-    def complete_session(session_id: str, photo_id: Optional[str], confirmed: bool) -> Dict[str, Any]:
+    def complete_session(
+        session_id: str,
+        photo_id: Optional[str],
+        confirmed: bool,
+        photos_viewed_override: Optional[int] = None,
+    ) -> Dict[str, Any]:
         """Mark session completed or continue search and calculate duration/turns."""
         db: Session = SessionLocal()
         try:
@@ -184,6 +189,8 @@ class SessionService:
                 created = created.replace(tzinfo=timezone.utc)
             duration = (now - created).total_seconds()
             candidates = json.loads(session.candidate_ids) if session.candidate_ids else []
+            # Calculate viewed photos accurately: override from frontend -> session candidates -> fallback 20
+            viewed_count = photos_viewed_override or len(candidates) or 20
 
             if confirmed:
                 session.status = "completed"
@@ -201,13 +208,14 @@ class SessionService:
                     "confirmed": confirmed,
                     "duration_seconds": duration,
                     "total_turns": session.turn_count,
+                    "photos_viewed": viewed_count,
                 },
                 db=db,
             )
 
             return {
                 "total_turns": session.turn_count,
-                "photos_viewed": len(candidates),
+                "photos_viewed": viewed_count,
                 "duration_seconds": round(duration, 2),
                 "confirmed": confirmed,
             }

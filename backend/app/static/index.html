@@ -257,15 +257,15 @@
                 </button>
               </div>
 
-              <textarea id="memory-input" class="w-full bg-transparent text-on-surface text-base placeholder-on-surface-variant/40 focus:outline-none resize-none leading-relaxed" rows="4" placeholder="e.g. That grand palace courtyard we visited during our Rajasthan trip with carved arches..."></textarea>
+              <textarea id="memory-input" class="w-full bg-transparent text-on-surface text-base placeholder-on-surface-variant/40 focus:outline-none resize-none leading-relaxed" rows="4" placeholder="e.g. That grand palace courtyard we visited during our Rajasthan trip with carved arches..." onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); submitMemorySearch(); }"></textarea>
 
               <div class="flex items-center justify-between pt-1">
                 <div class="flex items-center gap-1.5 text-on-surface-variant">
                   <span class="material-symbols-outlined text-[16px] text-tertiary">lightbulb</span>
                   <span class="text-xs">Sensory anchors active</span>
                 </div>
-                <button id="search-send-btn" aria-label="Find my memory" class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary active:scale-95 transition-all shadow-sm cursor-pointer" onclick="submitMemorySearch()" type="button">
-                  <span class="material-symbols-outlined text-[18px]">send</span>
+                <button id="search-send-btn" aria-label="Find my memory" class="w-11 h-11 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-primary active:scale-95 transition-all shadow-md cursor-pointer touch-manipulation select-none shrink-0" onpointerdown="handleSendMemoryTouch(event)" onclick="handleSendMemoryTouch(event)" type="button">
+                  <span class="material-symbols-outlined text-[20px] pointer-events-none select-none">send</span>
                 </button>
               </div>
             </div>
@@ -523,7 +523,7 @@
         <!-- =============================================================== -->
         <!-- SCREEN 3: CANDIDATES GRID                                       -->
         <!-- =============================================================== -->
-        <section id="screen-3" class="hidden flex-col px-4 pt-4 pb-24 gap-4 animate-fade-in">
+        <section id="screen-3" class="hidden flex-col px-4 pt-4 pb-32 gap-4 animate-fade-in">
           
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
@@ -551,14 +551,6 @@
 
           <!-- Candidates Photo Grid -->
           <div id="candidates-grid" class="grid grid-cols-2 gap-2.5 pt-1"></div>
-
-          <!-- Sticky Bottom Action Bar -->
-          <div class="absolute bottom-16 left-0 right-0 p-3 bg-surface/90 backdrop-blur-xl border-t border-surface-container-high/60 z-30 flex items-center gap-3">
-            <button onclick="triggerRefinementLoop()" class="flex-1 h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all">
-              <span class="material-symbols-outlined text-[18px]">psychology_alt</span>
-              <span>Help me narrow it down</span>
-            </button>
-          </div>
         </section>
 
         <!-- =============================================================== -->
@@ -676,6 +668,14 @@
 
       </div>
     </main>
+
+    <!-- Sticky Bottom Action Bar for Step 3 Candidates (Pinned at bottom of screen) -->
+    <div id="screen3-sticky-bar" class="hidden absolute bottom-16 left-0 right-0 p-3 bg-surface/95 backdrop-blur-xl border-t border-surface-container-high/60 z-30 flex items-center gap-3">
+      <button onclick="triggerRefinementLoop()" class="flex-1 h-12 rounded-full bg-primary-container hover:bg-primary text-on-primary-container font-semibold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-[0.99] transition-all cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">psychology_alt</span>
+        <span>Help me narrow it down</span>
+      </button>
+    </div>
 
     <!-- Bottom Navigation Bar (Google Photos Style) -->
     <nav class="absolute bottom-0 left-0 right-0 h-16 bg-surface-container-low/95 backdrop-blur-xl border-t border-surface-container-high/50 flex items-center justify-around z-40 px-6">
@@ -798,6 +798,8 @@
         backBtn.classList.add('hidden');
         progressBar.classList.add('hidden');
         if (newResearchBtn) newResearchBtn.classList.add('hidden');
+        const s3Sticky = document.getElementById('screen3-sticky-bar');
+        if (s3Sticky) s3Sticky.classList.add('hidden');
         const appMain = document.getElementById('app-main');
         if (appMain) appMain.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -905,6 +907,15 @@
       const convScreen = document.getElementById('screen-conversational');
       if (convScreen) convScreen.classList.add('hidden');
 
+      const s3Sticky = document.getElementById('screen3-sticky-bar');
+      if (s3Sticky) {
+        if (step === 3 && currentMainTab === 'remind') {
+          s3Sticky.classList.remove('hidden');
+        } else {
+          s3Sticky.classList.add('hidden');
+        }
+      }
+
       [1, 2, 3, 4, 5].forEach(i => {
         const el = document.getElementById(`screen-${i}`);
         if (el) {
@@ -954,7 +965,21 @@
     // -------------------------------------------------------------
     // Step 1: Submit Memory Search -> Enter Step 2 (Understanding)
     // -------------------------------------------------------------
+    let isSearchSubmitting = false;
+
+    function handleSendMemoryTouch(e) {
+      if (e) {
+        if (e.type === 'pointerdown' || e.type === 'touchstart') {
+          e.preventDefault();
+        }
+      }
+      if (isSearchSubmitting) return;
+      submitMemorySearch();
+    }
+
     async function submitMemorySearch() {
+      if (isSearchSubmitting) return;
+
       const input = document.getElementById('memory-input');
       const query = input.value.trim();
       if (!query) {
@@ -962,6 +987,9 @@
         input.focus();
         return;
       }
+
+      isSearchSubmitting = true;
+      input.blur();
 
       // Reset previous state so new research starts completely clean
       candidatePhotos = [];
@@ -1010,6 +1038,7 @@
       } catch (err) {
         alert("Error during memory search: " + err.message);
       } finally {
+        isSearchSubmitting = false;
         btn.disabled = false;
         if (sendBtn) sendBtn.disabled = false;
         label.textContent = "Find my memory";
@@ -1557,12 +1586,14 @@
       strip.innerHTML = "";
       candidatePhotos.slice(0, 10).forEach(photo => {
         const item = document.createElement('div');
-        item.className = "relative flex-shrink-0 w-20 h-28 rounded-xl overflow-hidden bg-surface-container-low shadow-md border border-surface-container-high/40";
+        item.className = "relative flex-shrink-0 w-20 h-28 rounded-xl overflow-hidden bg-surface-container-low shadow-md border border-surface-container-high/40 cursor-pointer hover:border-primary active:scale-95 transition-all group";
+        item.title = `Tap to inspect ${photo.photo_id}`;
         item.innerHTML = `
-          <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover" onerror="this.src='${photo.full_url}'"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent"></div>
-          <span class="absolute bottom-1 left-1.5 text-[9px] text-on-surface/90 font-medium truncate">${photo.photo_id}</span>
+          <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" onerror="this.src='${photo.full_url}'"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent pointer-events-none"></div>
+          <span class="absolute bottom-1 left-1.5 right-1.5 text-[9px] text-on-surface/90 font-medium truncate pointer-events-none">${photo.photo_id}</span>
         `;
+        item.onclick = () => selectCandidateForPreview(photo);
         strip.appendChild(item);
       });
 
@@ -1634,8 +1665,17 @@
         }
       }
 
-      // If hint keywords exist, display them as quick chips
-      if (refine.hint_keywords && refine.hint_keywords.length > 0) {
+      // If hint keywords exist, display them as quick chips (deduplicated against existing facet options)
+      const existingOptions = new Set();
+      if (refine.facets && refine.facets.length > 0) {
+        refine.facets.forEach(f => (f.options || []).forEach(o => existingOptions.add(o.toLowerCase())));
+      }
+      if (refine.options && refine.options.length > 0) {
+        refine.options.forEach(o => existingOptions.add(o.toLowerCase()));
+      }
+      const uniqueHints = (refine.hint_keywords || []).filter(h => !existingOptions.has(h.toLowerCase()));
+
+      if (uniqueHints.length > 0) {
         const hintsDiv = document.createElement('div');
         hintsDiv.className = "flex flex-col gap-1.5 pt-2 border-t border-surface-container-highest/60";
         hintsDiv.innerHTML = `
@@ -1644,7 +1684,7 @@
             Suggested hint keywords:
           </span>
           <div class="flex flex-wrap gap-1.5">
-            ${refine.hint_keywords.map(h => `
+            ${uniqueHints.map(h => `
               <button onclick="applyRefinementConstraint('visual', '${escapeHtml(h)}')" class="px-2.5 py-1 rounded-xl bg-surface-container hover:bg-surface-bright border border-surface-container-highest text-on-surface text-xs font-medium flex items-center gap-1 active:scale-95 transition-all shadow-sm cursor-pointer hover:border-primary/50">
                 <span class="material-symbols-outlined text-[12px] text-secondary">auto_awesome</span>
                 <span>${escapeHtml(h)}</span>
@@ -1711,11 +1751,7 @@
           selectCandidateForPreview(candidatePhotos[0]);
         } else {
           renderCandidates(data);
-          if (currentStep === 4 && data.refinement) {
-            renderRefinementScreen(data.refinement);
-          } else {
-            navigateToStep(3);
-          }
+          navigateToStep(3);
         }
       } catch (err) {
         alert("Error applying refinement: " + err.message);
@@ -1758,6 +1794,8 @@
         selectedHeroPhoto = candidatePhotos[0];
       }
 
+      const evaluatedCount = Math.max(candidatePhotos.length || 0, 20);
+
       try {
         const confirmRes = await fetch('/api/confirm', {
           method: 'POST',
@@ -1765,15 +1803,19 @@
           body: JSON.stringify({
             session_id: sessionId,
             photo_id: selectedHeroPhoto ? selectedHeroPhoto.photo_id : "unknown",
-            confirmed: isConfirmed
+            confirmed: isConfirmed,
+            photos_viewed: evaluatedCount
           })
         });
         if (!confirmRes.ok) throw new Error("Failed to confirm recognition");
         const confirmData = await confirmRes.json();
 
         if (isConfirmed) {
+          const viewed = (confirmData.metrics && confirmData.metrics.photos_viewed > 0)
+            ? confirmData.metrics.photos_viewed
+            : evaluatedCount;
           document.getElementById('modal-turns').textContent = confirmData.metrics.total_turns;
-          document.getElementById('modal-viewed').textContent = confirmData.metrics.photos_viewed;
+          document.getElementById('modal-viewed').textContent = viewed;
           document.getElementById('modal-summary-text').textContent = `Successfully retrieved ${selectedHeroPhoto.photo_id} in ${confirmData.metrics.total_turns} refinement turns!`;
           document.getElementById('celebration-modal').classList.remove('hidden');
         } else {

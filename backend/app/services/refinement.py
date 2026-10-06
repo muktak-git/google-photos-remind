@@ -87,7 +87,7 @@ class RefinementEngine:
                 candidates_remaining=len(candidates),
                 summary_message="No problem! Let's explore other clues.",
                 follow_up_prompt="What do you remember more?",
-                facets=hint_facets,
+                facets=[],
                 hint_keywords=hints,
             )
 
@@ -131,13 +131,7 @@ class RefinementEngine:
                 candidates_remaining=0,
                 summary_message="No matching photos found with those specific details.",
                 follow_up_prompt="Try describing another detail or hint, such as a small lake, courtyard, or time of day.",
-                facets=[
-                    RefineFacet(
-                        title="Try a different detail hint:",
-                        dimension="visual",
-                        options=["Small lake", "Outdoor courtyard", "Coorg hills", "Palace arch"],
-                    )
-                ],
+                facets=[],
                 hint_keywords=["Small lake", "Outdoor courtyard", "Coorg hills", "Palace arch"],
             )
 
