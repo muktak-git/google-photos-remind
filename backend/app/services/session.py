@@ -144,6 +144,39 @@ class SessionService:
             db.close()
 
     @staticmethod
+    def remove_constraint(session_id: str, dimension: Optional[str] = None, value: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Remove a constraint from the session and return the updated constraints list."""
+        db: Session = SessionLocal()
+        try:
+            session = db.query(SessionRecord).filter_by(session_id=session_id).first()
+            if not session:
+                return []
+
+            existing_constraints = json.loads(session.constraints) if session.constraints else []
+            updated = []
+            for c in existing_constraints:
+                dim_match = dimension and c.get("dimension") == dimension
+                val_match = value and c.get("value", "").lower() == value.lower()
+                if dim_match or val_match:
+                    continue
+                updated.append(c)
+
+            session.constraints = json.dumps(updated)
+            session.turn_count = max(0, len(updated))
+            session.updated_at = utcnow()
+            db.commit()
+
+            SessionService.log_event(
+                session_id=session_id,
+                event_type="constraint_removed",
+                payload={"dimension": dimension, "value": value, "remaining_count": len(updated)},
+                db=db,
+            )
+            return updated
+        finally:
+            db.close()
+
+    @staticmethod
     def log_event(
         session_id: str,
         event_type: str,

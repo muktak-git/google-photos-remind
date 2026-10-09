@@ -134,7 +134,7 @@ class RetrievalService:
             for rec, score in scored_records[:limit]:
                 # Normalize display score between 0.50 and 0.98 for top candidates
                 display_score = max(0.40, min(0.98, round(score if score <= 1.0 else (0.82 + min(0.16, (score - 1.0) * 0.04)), 3)))
-                top_candidates.append(self._record_to_candidate(rec, display_score))
+                top_candidates.append(self._record_to_candidate(rec, display_score, query=search_text))
 
             return top_candidates
         finally:
@@ -201,8 +201,39 @@ class RetrievalService:
         finally:
             db.close()
 
-    def _record_to_candidate(self, rec: PhotoRecord, score: float) -> CandidatePhoto:
-        """Convert a PhotoRecord into a CandidatePhoto schema object."""
+    def _record_to_candidate(self, rec: PhotoRecord, score: float, query: Optional[str] = None) -> CandidatePhoto:
+        """Convert a PhotoRecord into a CandidatePhoto schema object with explainable matched reasons."""
+        scene_list = json.loads(rec.scene) if rec.scene else []
+        objects_list = json.loads(rec.objects) if rec.objects else []
+        people_list = json.loads(rec.people) if rec.people else []
+
+        reasons = []
+        if rec.location and rec.location not in ("Unknown", "Various"):
+            reasons.append(rec.location)
+        for s in scene_list:
+            clean_s = s.strip().title()
+            if clean_s and clean_s not in reasons:
+                reasons.append(clean_s)
+        for o in objects_list:
+            clean_o = o.strip().title()
+            if clean_o and clean_o not in reasons:
+                reasons.append(clean_o)
+        if rec.setting and rec.setting.title() not in reasons:
+            reasons.append(rec.setting.title())
+        if rec.time_of_day and rec.time_of_day.title() not in reasons:
+            reasons.append(rec.time_of_day.title())
+        for p in people_list:
+            clean_p = p.strip().title()
+            if clean_p and clean_p not in reasons:
+                reasons.append(clean_p)
+
+        # If query is provided, sort matching terms first
+        if query:
+            q_tokens = [w.lower() for w in re.findall(r"\b[a-zA-Z0-9]+\b", query) if len(w) >= 3]
+            matched_terms = [r for r in reasons if any(qt in r.lower() for qt in q_tokens)]
+            other_terms = [r for r in reasons if r not in matched_terms]
+            reasons = matched_terms + other_terms
+
         return CandidatePhoto(
             photo_id=rec.photo_id,
             file_path=rec.file_path,
@@ -214,9 +245,10 @@ class RetrievalService:
             setting=rec.setting,
             time_of_day=rec.time_of_day,
             visual_description=rec.visual_description,
-            scene=json.loads(rec.scene) if rec.scene else [],
-            objects=json.loads(rec.objects) if rec.objects else [],
-            people=json.loads(rec.people) if rec.people else [],
+            scene=scene_list,
+            objects=objects_list,
+            people=people_list,
+            matched_reasons=reasons[:3],
         )
 
 

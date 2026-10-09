@@ -1408,6 +1408,8 @@
     // -------------------------------------------------------------
     // Step 2: Render Draft Search Plan (Understanding)
     // -------------------------------------------------------------
+    let currentUnderstoodChips = [];
+
     function renderUnderstandingScreen(rawQuery, data) {
       const recap = document.getElementById('recap-query-text');
       if (recap) recap.textContent = `“${rawQuery}”`;
@@ -1417,7 +1419,8 @@
         summary.textContent = data.draft_summary || `Searching for photos matching “${rawQuery}” in your library.`;
       }
 
-      renderUnderstoodBadges(data.chips);
+      currentUnderstoodChips = (data.chips || []).slice();
+      renderUnderstoodBadges(currentUnderstoodChips);
     }
 
     function renderUnderstoodBadges(chips) {
@@ -1430,7 +1433,7 @@
         badge.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-xs font-medium border border-surface-container-highest shadow-sm";
         badge.innerHTML = `
           <span>${escapeHtml(text)}</span>
-          <button onclick="removeUnderstoodBadge(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center ml-1" title="Remove">
+          <button onclick="removeUnderstoodBadge(${index})" class="text-on-surface-variant hover:text-error transition-colors flex items-center ml-1 cursor-pointer" title="Remove clue">
             <span class="material-symbols-outlined text-[13px]">close</span>
           </button>
         `;
@@ -1439,9 +1442,17 @@
     }
 
     function removeUnderstoodBadge(index) {
-      const cloud = document.getElementById('understood-badges-cloud');
-      if (cloud && cloud.children[index]) {
-        cloud.children[index].remove();
+      if (index >= 0 && index < currentUnderstoodChips.length) {
+        currentUnderstoodChips.splice(index, 1);
+        renderUnderstoodBadges(currentUnderstoodChips);
+        if (currentUnderstoodChips.length > 0) {
+          const remainingValues = currentUnderstoodChips.map(c => typeof c === 'string' ? c : (c.value || c.display_text)).join(" ");
+          currentMemoryQuery = remainingValues;
+          const summary = document.getElementById('draft-search-summary');
+          if (summary) {
+            summary.textContent = `Searching for photos matching: ${currentUnderstoodChips.map(c => typeof c === 'string' ? c : (c.display_text || c.value)).join(" • ")}`;
+          }
+        }
       }
     }
 
@@ -1515,14 +1526,30 @@
 
       const ribbon = document.getElementById('candidates-ribbon');
       ribbon.innerHTML = "";
-      if (extractedClues) {
+
+      // Render Active Constraints with interactive [x] Remove buttons
+      const constraints = candData.active_constraints || [];
+      if (constraints.length > 0) {
+        constraints.forEach((c) => {
+          const chip = document.createElement('div');
+          chip.className = "flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container text-xs font-semibold shrink-0 shadow-sm border border-primary/40 animate-fade-in";
+          chip.innerHTML = `
+            <span>${escapeHtml(c.value)}</span>
+            <button onclick="removeFilterConstraint('${escapeHtml(c.dimension)}', '${escapeHtml(c.value)}')" class="hover:bg-primary/20 rounded-full w-4 h-4 flex items-center justify-center ml-0.5 cursor-pointer text-on-primary-container" title="Remove filter">
+              <span class="material-symbols-outlined text-[13px]">close</span>
+            </button>
+          `;
+          ribbon.appendChild(chip);
+        });
+      } else if (extractedClues) {
         if (extractedClues.location) {
-          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>📍</span><span>${extractedClues.location}</span></div>`;
+          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>📍</span><span>${escapeHtml(extractedClues.location)}</span></div>`;
         }
         if (extractedClues.scene) {
-          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>🏛️</span><span class="capitalize">${extractedClues.scene}</span></div>`;
+          ribbon.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface text-xs font-medium shrink-0"><span>🏛️</span><span class="capitalize">${escapeHtml(extractedClues.scene)}</span></div>`;
         }
       }
+
       ribbon.innerHTML += `<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-secondary text-[11px] shrink-0 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span><span>${candData.total} candidates</span></div>`;
 
       const grid = document.getElementById('candidates-grid');
@@ -1533,18 +1560,52 @@
         card.className = "candidate-card relative aspect-square rounded-xl overflow-hidden bg-surface-container cursor-pointer select-none border border-surface-container-high/40 hover:border-primary-container/80 transition-all active:scale-[0.98] group";
         
         const pct = Math.round(photo.score * 100);
+        const reasonText = (photo.matched_reasons && photo.matched_reasons.length > 0)
+          ? photo.matched_reasons.slice(0, 2).join(" • ")
+          : (photo.location || photo.photo_id);
+
         card.innerHTML = `
           <img src="${photo.thumbnail_url}" alt="${photo.photo_id}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.src='${photo.full_url}'"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/80 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-black/60 pointer-events-none"></div>
+          
+          <!-- Top Explainability Badge: Why it was surfaced -->
+          <div class="absolute top-1.5 left-1.5 right-1.5 flex items-center justify-between pointer-events-none">
+            <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-black/75 backdrop-blur-md text-secondary font-semibold truncate max-w-[76%] flex items-center gap-0.5 border border-secondary/30 shadow-sm">
+              <span class="material-symbols-outlined text-[10px] text-secondary shrink-0">auto_awesome</span>
+              <span class="truncate">${escapeHtml(reasonText)}</span>
+            </span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded-md bg-black/75 text-white font-bold backdrop-blur-md border border-white/10 shadow-sm shrink-0">${pct}%</span>
+          </div>
+
+          <!-- Bottom Location / Detail -->
           <div class="absolute bottom-1.5 left-2 right-2 flex items-center justify-between pointer-events-none">
-            <span class="text-[10px] text-on-surface font-semibold truncate drop-shadow">${photo.location || photo.photo_id}</span>
-            <span class="text-[9px] text-secondary font-bold">${pct}%</span>
+            <span class="text-[10px] text-on-surface font-semibold truncate drop-shadow">${escapeHtml(photo.location || photo.photo_id)}</span>
           </div>
         `;
 
         card.onclick = () => selectCandidateForPreview(photo);
         grid.appendChild(card);
       });
+    }
+
+    async function removeFilterConstraint(dimension, value) {
+      try {
+        const res = await fetch('/api/candidates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: sessionId,
+            query: currentMemoryQuery,
+            remove_constraint: { dimension, value }
+          })
+        });
+        if (!res.ok) throw new Error("Failed to remove filter");
+        const data = await res.json();
+        candidatePhotos = data.candidates;
+        renderCandidates(data);
+      } catch (err) {
+        alert("Error removing filter: " + err.message);
+      }
     }
 
     function selectCandidateForPreview(photo) {
@@ -1775,6 +1836,10 @@
       const chipsCont = document.getElementById('hero-chips-container');
       chipsCont.innerHTML = "";
 
+      if (photo.matched_reasons && photo.matched_reasons.length > 0) {
+        chipsCont.innerHTML += `<div class="w-full flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-secondary/15 border border-secondary/30 text-secondary text-xs font-semibold mb-0.5"><span class="material-symbols-outlined text-[15px] shrink-0">auto_awesome</span><span>Why surfaced: <span class="text-on-surface font-medium">${escapeHtml(photo.matched_reasons.join(" • "))}</span></span></div>`;
+      }
+
       if (photo.location) {
         chipsCont.innerHTML += `<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-xs"><span class="material-symbols-outlined text-[14px] text-primary">location_on</span><span>${photo.location}</span></div>`;
       }
@@ -1839,6 +1904,7 @@
       candidatePhotos = [];
       selectedHeroPhoto = null;
       currentRefinement = null;
+      currentUnderstoodChips = [];
 
       // Clear all text inputs
       const memInput = document.getElementById('memory-input');

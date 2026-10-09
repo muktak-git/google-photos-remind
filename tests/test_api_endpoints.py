@@ -164,3 +164,34 @@ def test_library_endpoint():
     assert "full_url" in first
     assert "location" in first
 
+
+def test_remove_constraint_restores_candidates():
+    """Verify that removing a constraint (wrong direction) restores candidates and updates active constraints."""
+    res = client.post("/api/search", json={"query": "palace courtyard in Rajasthan"})
+    assert res.status_code == 201
+    sess_id = res.json()["session_id"]
+
+    res = client.post("/api/candidates", json={"session_id": sess_id})
+    assert res.status_code == 200
+    initial_total = res.json()["total"]
+    assert "matched_reasons" in res.json()["candidates"][0]
+
+    # Apply a constraint
+    res = client.post("/api/candidates", json={
+        "session_id": sess_id,
+        "constraint": {"dimension": "time_of_day", "value": "evening"}
+    })
+    assert res.status_code == 200
+    assert len(res.json()["active_constraints"]) == 1
+
+    # Remove the constraint (wrong direction recovery)
+    res = client.post("/api/candidates", json={
+        "session_id": sess_id,
+        "remove_constraint": {"dimension": "time_of_day", "value": "evening"}
+    })
+    assert res.status_code == 200
+    restored_data = res.json()
+    assert len(restored_data["active_constraints"]) == 0
+    assert restored_data["total"] == initial_total
+    assert "Removed filter" in restored_data["banner_message"]
+

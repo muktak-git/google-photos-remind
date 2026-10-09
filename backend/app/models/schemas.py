@@ -68,6 +68,7 @@ class CandidatesRequest(BaseModel):
     session_id: str
     query: Optional[str] = None
     constraint: Optional[ConstraintInput] = None
+    remove_constraint: Optional[ConstraintInput] = None
 
 
 class CandidatePhoto(BaseModel):
@@ -84,6 +85,7 @@ class CandidatePhoto(BaseModel):
     scene: List[str] = Field(default_factory=list)
     objects: List[str] = Field(default_factory=list)
     people: List[str] = Field(default_factory=list)
+    matched_reasons: List[str] = Field(default_factory=list)
 
 
 class RefineFacet(BaseModel):
@@ -112,6 +114,7 @@ class CandidatesResponse(BaseModel):
     turn: int
     banner_message: Optional[str] = None
     refinement: Optional[RefineResponse] = None
+    active_constraints: List[Dict[str, Any]] = Field(default_factory=list)
 
 
 # -------------------------------------------------------------
